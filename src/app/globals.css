@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   MEDISMILE DESIGN TOKENS
+   Single source of truth for the design system.
+   Values mirror the approved prototype (medismile-prototype.html)
+   and the Developer Handoff. Token naming follows the Handoff
+   convention (--color-*). Do not hardcode these values anywhere.
+   ============================================================ */
+:root {
+  /* ── Colors ── */
+  --color-primary: #0b4f6c; /* Deep Ocean Blue */
+  --color-primary-light: #1a7ba0; /* Ocean Blue */
+  --color-primary-dark: #073a52;
+  --color-accent: #22c9a5; /* Aqua Vitae */
+  --color-accent-light: #4dd9b8;
+  --color-accent-dim: #1aac8d;
+  --color-gold: #c8a96e; /* Champagne Gold */
+
+  --color-neutral-50: #f8fafb; /* Pearl White — page background */
+  --color-neutral-100: #eff4f7; /* Soft — cards, alt sections */
+  --color-neutral-200: #dde8ee; /* Mist — borders */
+  --color-neutral-500: #5e7a8a; /* Dim — secondary text */
+  --color-neutral-900: #0f1923; /* Midnight — primary text */
+  --color-body: #2c3e4a; /* Default body text */
+
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  --color-white: #ffffff;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #20ba5a;
+
+  /* ── Alpha / overlay tokens ── */
+  --color-accent-subtle: rgba(34, 201, 165, 0.15);
+  --color-accent-border: rgba(34, 201, 165, 0.25);
+  --color-gold-subtle: rgba(200, 169, 110, 0.15);
+  --color-gold-border: rgba(200, 169, 110, 0.25);
+  --color-white-subtle: rgba(255, 255, 255, 0.08);
+  --color-white-faded: rgba(255, 255, 255, 0.60);
+  --color-white-border: rgba(255, 255, 255, 0.12);
+  --color-white-muted: rgba(255, 255, 255, 0.45);
+
+  /* ── Dark section gradient stops ── */
+  --color-primary-darker: #0b2d40;
+  --color-primary-deep: #0a3850;
+  --overlay-primary: rgba(11, 79, 108, 0.55);
+  --overlay-accent: rgba(34, 201, 165, 0.12);
+
+  /* ── Typography families ──
+     The hashed family names come from next/font (see app/layout.tsx),
+     exposed as --font-playfair / --font-inter / --font-dm-sans. ── */
+  --font-display: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  --font-body: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-ui: var(--font-dm-sans), 'DM Sans', system-ui, sans-serif;
+
+  /* ── Type scale ── */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-6xl: 3.75rem; /* 60px */
+
+  /* ── Spacing (4px base) ── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-5: 20px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-28: 112px;
+  --space-32: 128px;
+  --container-max: 1200px;
+
+  /* ── Border radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 1px 3px rgba(11, 79, 108, 0.08);
+  --shadow-md: 0 4px 16px rgba(11, 79, 108, 0.12);
+  --shadow-lg: 0 8px 32px rgba(11, 79, 108, 0.16);
+  --shadow-xl: 0 20px 60px rgba(11, 79, 108, 0.20);
+  --shadow-chat: 0 24px 64px rgba(11, 79, 108, 0.22);
+  --shadow-premium: 0 20px 60px rgba(11, 79, 108, 0.2);
+
+  /* ── Z-index scale ── */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-nav: 40;
+  --z-chat: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+
+  /* ── Motion ── */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --duration-xslow: 600ms;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-body);
+    background: var(--color-neutral-50);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    color: var(--color-neutral-900);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+}
+
+@layer utilities {
+  /* Dark section: radial gradient orbs + linear base — never flat midnight */
+  .section-dark {
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, var(--overlay-primary) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 10% 80%, var(--overlay-accent) 0%, transparent 60%),
+      linear-gradient(135deg, var(--color-neutral-900) 0%, var(--color-primary-darker) 50%, var(--color-primary-deep) 100%);
+    color: var(--color-white);
+  }
+}
+
+/* ── Keyframes ── */
+@keyframes orb-float {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
+}
+
+@keyframes float-review {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Tailwind's built-in `animate-pulse` and `animate-ping` cover the
+   pulse + ping cases; custom keyframes above cover the rest. */
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
