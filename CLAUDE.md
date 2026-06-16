@@ -23,6 +23,8 @@ Next.js 14 App Router · TypeScript (strict) · Tailwind + CSS-variable tokens �
 - `Base_docs/MediSmile-Developer-Handoff-v1.0.docx` — component specs
 - `Base_docs/medismile-prototype.html` — visual bible (absolute reference)
 - `open-design/design-systems/medismile/DESIGN.md` — design system (tokens, typography, motion, components, voice, anti-patterns)
+- `design-system/medismile/MASTER.md` — **canonical token reference** (palette, z-index, spacing, motion, shadows). Always check before adding new visual values.
+- `design-system/medismile/pages/` — per-page overrides (`home.md`, `services.md`, `sofia.md`) — take priority over MASTER for their specific page.
 
 ## Design tokens
 Palette: Deep Ocean Blue `#0B4F6C` · Aqua Vitae `#22C9A5` · Champagne Gold `#C8A96E` · Pearl White `#F8FAFB` · Midnight `#0F1923`.
@@ -47,10 +49,28 @@ Applied in: `src/lib/supabase/server.ts` · `src/middleware.ts`.
 ## Roadmap
 - ✅ S1 Foundation & Design System — **DONE** (build passing, 18/18 pages)
 - 🔄 S2 Core Pages — **CURRENT**
+  - ✅ S2.1 Home — $10K upgrade: CountUp stats, TestimonialsCarousel (autoplay + direction-aware), real clinic photos, animated hero with floating social-proof cards
+  - ✅ S2.2 Services — 8 alternating dark/light sections, real content, First Visit $99 banner, 8 insurers, 7-question FAQ
+  - ⏳ S2.3 Sofia AI Chatbot — multi-step qualification, `<LEAD_QUALIFIED>` emission, `/api/chat` integration
+  - ⏳ S2.4 About — Dr. Nelson timeline, mission, team
+  - ⏳ S2.5 Contact — email regex validation fix
+  - ⏳ S2.6 First Visit + Insurance content pages
 - S3 Full site + SEO
 - S4 AI Agent + WhatsApp
-- S5 Admin panel
+- S5 Admin panel (role-based: commercial vs admin; Supabase Storage CMS; image upload UI — see architecture below)
 - S6 QA & go-live
+
+## S5 Admin Panel Architecture (planned)
+- **Roles:** `commercial` (leads/clients only) · `admin` (full CMS + user management) · `master` (adds commercial accounts + edits all site images/banners)
+- **CMS:** Supabase Storage for image uploads + `site_content` table for banner/photo URLs
+- **Client-editable:** banners (hero top bar), service photos, team photos — all via drag-and-drop upload UI
+- Stack: existing Supabase project · Next.js Route Handlers · `@supabase/ssr`
+
+## Real photos (public/images/)
+- `hero/`: clinic-office.jpg · dentista-hero.jpg · sorriso-bg.png
+- `services/`: dental-tools.jpg · implants.png · tooth-anatomy.png · xray.png
+- `team/`: dr-nelson.png
+- `testimonials/`: renata.png · vitoria.png · victor.png
 
 ## AI Agent handoff contract
 Sofia emits, on qualification:
