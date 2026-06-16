@@ -40,7 +40,7 @@ export function Nav() {
     <nav
       aria-label="Main navigation"
       className={cn(
-        'fixed inset-x-0 top-0 z-[100] h-[72px] transition-shadow duration-base',
+        'fixed inset-x-0 top-0 z-[40] h-[72px] transition-shadow duration-base',
         'border-b bg-white/[0.92] backdrop-blur-[12px]',
         'border-primary/[0.08]',
         scrolled && 'shadow-md',

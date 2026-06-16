@@ -1,21 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import {
-  Zap,
-  Star,
-  Layers,
-  AlertCircle,
-  Heart,
-  Gem,
-  Phone,
-  MapPin,
-} from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
+import { Zap, Star, Layers, AlertCircle, Heart, Gem, Phone, MapPin } from 'lucide-react';
 import { ServiceCard } from '@/components/ui/Card';
-import { ReviewCard } from '@/components/ui/Card';
 import { AnimatedGrid } from '@/components/ui/AnimatedGrid';
 import { FAQAccordion } from '@/components/site/FAQAccordion';
+import { HeroSection } from '@/components/site/HeroSection';
+import { DoctorSection } from '@/components/site/DoctorSection';
+import { TestimonialsCarousel, type Testimonial } from '@/components/site/TestimonialsCarousel';
 import { ChatWidget } from '@/components/chat/ChatWidget';
+import { buttonVariants } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'MediSmile Group — Premier Dental Care in Orlando, FL',
@@ -24,13 +18,6 @@ export const metadata: Metadata = {
 };
 
 const WHATSAPP_URL = 'https://wa.me/16893103396';
-
-const stats = [
-  { number: '2,500+', label: 'Patients' },
-  { number: '30+', label: 'Years' },
-  { number: '2', label: 'Locations' },
-  { number: '5★', label: 'Rating' },
-] as const;
 
 const insurances = [
   'Delta Dental',
@@ -80,26 +67,30 @@ const services = [
   },
 ] as const;
 
-const reviews = [
+const testimonials: Testimonial[] = [
   {
-    author: 'Maria S.',
-    location: 'Orlando',
+    author: 'Renata M.',
+    location: 'Orlando, FL',
     rating: 5,
-    text: "Dr. Marques changed my life. My implants look completely natural and the team made me feel at ease throughout. Best dental experience I've ever had.",
+    photo: '/images/testimonials/renata.png',
+    text: "Dr. Marques completely transformed my smile. My implants look and feel completely natural — I finally smile without hesitation. The whole team is incredible.",
   },
   {
-    author: 'James R.',
-    location: 'Winter Springs',
+    author: 'Vitória Braga',
+    location: 'Ocoee, FL',
     rating: 5,
-    text: "Finally a dentist who speaks my language — literally. The Portuguese-speaking staff made my mother feel completely comfortable during her treatment.",
+    photo: '/images/testimonials/vitoria.png',
+    lang: 'pt',
+    text: "Fui com muito medo e saí sorrindo. A equipe toda fala português, o consultório é moderno e acolhedor, e o Dr. Nelson é um especialista de verdade. Recomendo para toda a comunidade brasileira em Orlando.",
   },
   {
-    author: 'Ana P.',
-    location: 'Ocoee',
+    author: 'Victor Hugo',
+    location: 'Winter Springs, FL',
     rating: 5,
-    text: "From the moment I walked in I knew this was different. The office is beautiful, the team is professional, and the results exceeded my expectations.",
+    photo: '/images/testimonials/victor.png',
+    text: "Best dental experience I've ever had. They handled my SureSmile treatment with precision and the results came ahead of schedule. Modern office, professional team — couldn't be happier.",
   },
-] as const;
+];
 
 const faqItems = [
   {
@@ -120,7 +111,7 @@ const faqItems = [
   {
     question: 'Do you have Portuguese-speaking staff?',
     answer:
-      'Yes! Dr. Marques and several team members are fluent in Portuguese (Brazilian). We serve Orlando\'s Brazilian community with pride.',
+      "Yes! Dr. Marques and several team members are fluent in Portuguese (Brazilian). We serve Orlando's Brazilian community with pride.",
   },
   {
     question: 'What financing options are available?',
@@ -130,7 +121,7 @@ const faqItems = [
   {
     question: 'What are your office hours?',
     answer:
-      'We\'re open Monday through Friday, 10AM to 6PM, at both Winter Springs and Ocoee locations.',
+      "We're open Monday through Friday, 10AM to 6PM, at both Winter Springs and Ocoee locations.",
   },
 ] as const;
 
@@ -159,97 +150,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── Section 1: Hero ──────────────────────────────────── */}
-      <section className="section-dark relative overflow-hidden">
-        {/* Decorative orbs */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 overflow-hidden"
-        >
-          <div className="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-primary-light/10 blur-3xl animate-orb-float" />
-          <div className="absolute -bottom-20 right-0 h-[400px] w-[400px] rounded-full bg-accent/5 blur-3xl animate-orb-float [animation-delay:3s]" />
-        </div>
-
-        <div className="relative mx-auto grid max-w-container grid-cols-1 items-center gap-12 px-6 py-24 lg:grid-cols-2 lg:py-32">
-          {/* Left — content */}
-          <div className="flex flex-col gap-6">
-            <Badge variant="white" size="md">
-              Premier Dental Care · Orlando, FL
-            </Badge>
-
-            <h1 className="font-display text-5xl font-bold leading-tight text-white lg:text-6xl">
-              The smile you{' '}
-              <em className="italic text-accent not-italic">deserve.</em>
-              <br />
-              The care you trust.
-            </h1>
-
-            <p className="max-w-lg font-body text-lg leading-relaxed text-white-faded">
-              Bilingual care with Dr. Nelson Marques — 30 years of precision
-              dentistry across two Orlando locations.
-            </p>
-
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-md bg-primary px-9 font-ui text-base font-semibold text-white transition-all duration-fast hover:bg-primary-dark hover:-translate-y-px hover:shadow-md"
-              >
-                Schedule Free Consultation
-              </Link>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-md bg-whatsapp px-9 font-ui text-base font-semibold text-white transition-all duration-fast hover:bg-whatsapp-dark hover:-translate-y-px hover:shadow-md"
-              >
-                WhatsApp Us
-              </a>
-            </div>
-
-            {/* Stats bar */}
-            <div className="mt-4 flex flex-wrap gap-8 border-t border-white-border pt-6">
-              {stats.map(({ number, label }) => (
-                <div key={label}>
-                  <p className="font-display text-3xl font-bold text-accent">{number}</p>
-                  <p className="font-ui text-sm text-white-faded">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right — visual placeholder + floating cards */}
-          <div className="relative flex items-center justify-center">
-            {/* Image placeholder */}
-            <div
-              className="relative h-[420px] w-full max-w-[440px] overflow-hidden rounded-2xl"
-              style={{
-                background:
-                  'linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%)',
-              }}
-            >
-              <p className="absolute inset-0 flex items-center justify-center font-ui text-sm text-white-muted">
-                Photo — Dr. Nelson Marques
-                <br />
-                (Sprint 3)
-              </p>
-            </div>
-
-            {/* Floating card 1 */}
-            <div className="absolute -bottom-4 -left-4 flex animate-float-review items-center gap-3 rounded-xl border border-white-border bg-white/10 px-4 py-3 backdrop-blur-sm">
-              <span className="text-xl" aria-hidden="true">⭐</span>
-              <div>
-                <p className="font-ui text-sm font-semibold text-white">5.0 · 300+ Reviews</p>
-                <p className="font-ui text-[12px] text-white-faded">Google</p>
-              </div>
-            </div>
-
-            {/* Floating card 2 */}
-            <div className="absolute -right-4 top-8 flex animate-float-review [animation-delay:1.5s] items-center gap-3 rounded-xl border border-white-border bg-white/10 px-4 py-3 backdrop-blur-sm">
-              <span className="text-xl text-accent" aria-hidden="true">✓</span>
-              <p className="font-ui text-sm font-semibold text-white">Most insurances accepted</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* ── Section 2: Trust bar ─────────────────────────────── */}
       <section className="bg-soft py-12">
@@ -257,7 +158,7 @@ export default function HomePage() {
           <p className="text-center font-ui text-sm font-semibold uppercase tracking-wider text-dim">
             We accept most major insurances
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-6">
+          <AnimatedGrid className="mt-6 flex flex-wrap items-center justify-center gap-6">
             {insurances.map((name) => (
               <span
                 key={name}
@@ -266,7 +167,7 @@ export default function HomePage() {
                 {name}
               </span>
             ))}
-          </div>
+          </AnimatedGrid>
         </div>
       </section>
 
@@ -305,64 +206,9 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 4: Doctor ────────────────────────────────── */}
-      <section className="section-dark">
-        <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-2">
-          {/* Left — text */}
-          <div className="flex flex-col gap-6">
-            <p className="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
-              Meet your doctor
-            </p>
-            <h2 className="font-display text-4xl font-bold text-white">
-              Dr. Nelson Marques
-              <br />
-              <em className="italic text-accent">30 years</em> of precision care
-            </h2>
-            <p className="font-body text-lg leading-relaxed text-white-faded">
-              Board-certified with over three decades of experience in implant
-              dentistry and orofacial harmonization. Trained at the University of
-              Florida and MARC Institute Miami — bringing world-class expertise to
-              Orlando.
-            </p>
+      <DoctorSection />
 
-            {/* Credentials */}
-            <div className="flex flex-wrap gap-2">
-              {[
-                'University of Florida',
-                'MARC Institute Miami',
-                'Implant Specialist',
-                'Orofacial Harmonization',
-                'Bilingual EN/PT',
-              ].map((cred) => (
-                <Badge key={cred} variant="white" size="sm">
-                  {cred}
-                </Badge>
-              ))}
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href="/about"
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-md bg-accent px-9 font-ui text-base font-semibold text-white transition-all duration-fast hover:bg-accent-dim hover:-translate-y-px hover:shadow-md"
-              >
-                Meet Dr. Marques
-              </Link>
-            </div>
-          </div>
-
-          {/* Right — image placeholder */}
-          <div
-            className="h-[440px] w-full rounded-2xl"
-            style={{
-              background:
-                'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%)',
-            }}
-            aria-label="Photo of Dr. Nelson Marques — Sprint 3"
-            role="img"
-          />
-        </div>
-      </section>
-
-      {/* ── Section 5: Reviews ───────────────────────────────── */}
+      {/* ── Section 5: Testimonials carousel ────────────────── */}
       <section className="bg-soft py-20">
         <div className="mx-auto max-w-container px-6">
           <div className="text-center">
@@ -372,13 +218,14 @@ export default function HomePage() {
             <h2 className="mt-3 font-display text-4xl font-bold text-midnight">
               Real smiles, real results
             </h2>
+            <p className="mx-auto mt-3 max-w-xl font-body text-lg text-dim">
+              Over 300 five-star reviews on Google — here are a few of their stories.
+            </p>
           </div>
 
-          <AnimatedGrid className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {reviews.map((review) => (
-              <ReviewCard key={review.author} {...review} />
-            ))}
-          </AnimatedGrid>
+          <div className="mt-12">
+            <TestimonialsCarousel testimonials={testimonials} />
+          </div>
 
           <div className="mt-8 text-center">
             <a
@@ -407,7 +254,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <AnimatedGrid className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
             {locations.map((loc) => (
               <div
                 key={loc.name}
@@ -417,7 +264,10 @@ export default function HomePage() {
                   <h3 className="font-display text-2xl font-bold text-midnight">{loc.name}</h3>
                   <address className="mt-2 flex flex-col gap-1 font-body text-base not-italic text-dim">
                     <span className="flex items-start gap-2">
-                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                      <MapPin
+                        className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        aria-hidden="true"
+                      />
                       {loc.address}, {loc.city}
                     </span>
                     <span className="flex items-center gap-2">
@@ -430,11 +280,11 @@ export default function HomePage() {
                   <p className="mt-2 font-ui text-sm text-dim">Mon–Fri 10AM–6PM</p>
                 </div>
 
-                {/* Map placeholder */}
+                {/* Map placeholder — Google Maps embed in Sprint 3 */}
                 <div
                   className="h-40 w-full rounded-lg bg-soft"
-                  aria-label={`Map for ${loc.name} — Google Maps embed Sprint 3`}
                   role="img"
+                  aria-label={`Map for ${loc.name} — Google Maps embed Sprint 3`}
                 />
 
                 <div className="flex gap-3">
@@ -442,20 +292,26 @@ export default function HomePage() {
                     href={loc.mapsHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-11 flex-1 items-center justify-center rounded-md bg-primary px-4 font-ui text-sm font-semibold text-white transition-all hover:bg-primary-dark"
+                    className={cn(
+                      buttonVariants({ variant: 'primary', size: 'md' }),
+                      'flex-1',
+                    )}
                   >
                     Get Directions
                   </a>
                   <a
                     href={`tel:${loc.tel}`}
-                    className="inline-flex h-11 flex-1 items-center justify-center rounded-md border border-primary px-4 font-ui text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white"
+                    className={cn(
+                      buttonVariants({ variant: 'ghost', size: 'md' }),
+                      'flex-1',
+                    )}
                   >
                     Call Now
                   </a>
                 </div>
               </div>
             ))}
-          </div>
+          </AnimatedGrid>
         </div>
       </section>
 
@@ -492,7 +348,7 @@ export default function HomePage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-md bg-primary px-9 font-ui text-base font-semibold text-white transition-all duration-fast hover:bg-primary-dark hover:-translate-y-px hover:shadow-md"
+              className={cn(buttonVariants({ variant: 'accent', size: 'lg' }))}
             >
               Schedule Free Consultation
             </Link>
@@ -500,7 +356,7 @@ export default function HomePage() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-md bg-whatsapp px-9 font-ui text-base font-semibold text-white transition-all duration-fast hover:bg-whatsapp-dark hover:-translate-y-px hover:shadow-md"
+              className={cn(buttonVariants({ variant: 'whatsapp', size: 'lg' }))}
             >
               WhatsApp Us Now
             </a>
@@ -512,7 +368,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Chat widget */}
       <ChatWidget />
     </>
   );

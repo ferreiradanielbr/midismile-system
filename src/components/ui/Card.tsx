@@ -2,7 +2,7 @@
 
 import { type ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Star } from 'lucide-react';
+import { ArrowUpRight, Star, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 /* ─────────────────────────────────────────────────────────── */
@@ -245,7 +245,7 @@ export function PricingCard({
       <ul className="flex flex-col gap-3">
         {features.map((feature) => (
           <li key={feature} className="flex items-start gap-2 font-body text-base text-body">
-            <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
+            <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
             {feature}
           </li>
         ))}
