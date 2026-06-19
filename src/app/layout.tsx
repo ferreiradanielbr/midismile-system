@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { DM_Sans, Inter, Playfair_Display } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
+import { SITE_URL } from '@/lib/constants';
+import { StructuredData } from '@/components/seo/StructuredData';
+import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics';
 import './globals.css';
 
 const playfair = Playfair_Display({
@@ -24,10 +28,8 @@ const dmSans = DM_Sans({
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'MediSmile Group — Premium Dental Care in Orlando, FL',
     template: '%s | MediSmile Group',
@@ -51,7 +53,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable} ${dmSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        <StructuredData />
+        {children}
+        <Analytics />
+        <GoogleAnalytics />
+      </body>
     </html>
   );
 }
