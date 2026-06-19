@@ -1,5 +1,11 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { GraduationCap, Heart, Quote, Sparkles, Users } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
+import { AnimatedGrid } from '@/components/ui/AnimatedGrid';
+import { buttonVariants } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'About Us | MediSmile Group',
@@ -7,12 +13,72 @@ export const metadata: Metadata = {
     'Meet Dr. Nelson Marques and the MediSmile team. 30+ years of precision dentistry in Orlando, FL.',
 };
 
+const WHATSAPP_URL = 'https://wa.me/16893103396';
+
 const credentials = [
   'University of Florida',
   'MARC Institute Miami',
   'Implant Specialist',
   'Orofacial Harmonization',
   'Bilingual EN/PT',
+] as const;
+
+const milestones = [
+  {
+    era: 'Foundations',
+    title: 'A career built on listening first',
+    description:
+      'Dr. Marques began practicing general dentistry, shaping the patient-first philosophy that still guides every visit today.',
+  },
+  {
+    era: 'Advanced training',
+    title: 'Advanced Implantology — University of Florida',
+    description:
+      'Specialized training in dental implants, focused on precision placement and natural, lasting results.',
+  },
+  {
+    era: 'Specialization',
+    title: 'Orofacial Harmonization — MARC Institute, Miami',
+    description:
+      'Added facial aesthetics to his clinical toolkit, learning to harmonize smiles with the face as a whole.',
+  },
+  {
+    era: 'Growth',
+    title: 'Founding MediSmile Group',
+    description:
+      'Opened the doors to bilingual, premium dental care — first in Winter Springs, then Ocoee — for Orlando families.',
+  },
+  {
+    era: 'Today',
+    title: '30+ years, 2,500+ patients',
+    description:
+      'Still treating every patient like family, across two Orlando locations, in English and Portuguese.',
+  },
+] as const;
+
+const values = [
+  {
+    icon: Sparkles,
+    title: 'Excellence',
+    description: 'Precision techniques and continuous training behind every procedure.',
+  },
+  {
+    icon: Heart,
+    title: 'Compassion',
+    description: 'Unhurried visits where your goals — not just your teeth — come first.',
+  },
+  {
+    icon: Users,
+    title: 'Community',
+    description: "Bilingual care that feels familiar to Orlando's diverse families.",
+  },
+] as const;
+
+const careTeamRoles = [
+  'Patient Care Coordinators',
+  'Bilingual Front Desk',
+  'Dental Hygienists',
+  'Treatment Planning',
 ] as const;
 
 export default function AboutPage() {
@@ -44,21 +110,80 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Image placeholder */}
             <div
-              className="h-[400px] w-full rounded-2xl"
+              className="relative h-[440px] w-full overflow-hidden rounded-2xl"
               style={{
                 background:
                   'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%)',
               }}
-              role="img"
-              aria-label="Photo of Dr. Nelson Marques — Sprint 3"
-            />
+            >
+              <Image
+                src="/images/team/dr-nelson.png"
+                alt="Dr. Nelson Marques — MediSmile Group"
+                fill
+                priority
+                className="object-contain"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Mission */}
+      {/* Philosophy / quote */}
+      <section className="bg-pearl py-20">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <Quote className="mx-auto h-9 w-9 text-gold" aria-hidden="true" />
+          <p className="mt-6 font-display text-2xl font-medium italic leading-relaxed text-midnight lg:text-3xl">
+            &ldquo;Every patient deserves a smile that reflects who they truly
+            are. That&apos;s why I take time to understand your goals, not just
+            your teeth.&rdquo;
+          </p>
+          <p className="mt-6 font-ui text-sm font-semibold uppercase tracking-wider text-dim">
+            — Dr. Nelson Marques
+          </p>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="section-dark py-20">
+        <div className="mx-auto max-w-container px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+              The journey
+            </p>
+            <h2 className="mt-3 font-display text-4xl font-bold text-white">
+              Three decades of precision care
+            </h2>
+          </div>
+
+          <AnimatedGrid className="mx-auto mt-16 max-w-2xl">
+            {milestones.map(({ era, title, description }, i) => (
+              <div
+                key={era}
+                className={cn(
+                  'relative border-l-2 border-white-border pb-10 pl-8 last:pb-0',
+                  i === 0 && 'pt-0',
+                )}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-[7px] top-1 h-3 w-3 rounded-full bg-accent"
+                />
+                <p className="font-ui text-xs font-semibold uppercase tracking-wider text-accent">
+                  {era}
+                </p>
+                <h3 className="mt-2 font-display text-xl font-bold text-white">{title}</h3>
+                <p className="mt-2 font-body text-base leading-relaxed text-white-faded">
+                  {description}
+                </p>
+              </div>
+            ))}
+          </AnimatedGrid>
+        </div>
+      </section>
+
+      {/* Mission + values */}
       <section className="bg-pearl py-20">
         <div className="mx-auto max-w-container px-6">
           <div className="mx-auto max-w-3xl text-center">
@@ -77,9 +202,86 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <p className="mt-16 text-center font-body text-sm text-dim">
-            Full team profiles and clinic story built in Sprint 3.
+          <AnimatedGrid className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {values.map(({ icon: Icon, title, description }) => (
+              <div
+                key={title}
+                className="flex flex-col items-center gap-3 rounded-xl border border-mist bg-white p-8 text-center shadow-sm"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent-subtle text-accent">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                </div>
+                <h3 className="font-display text-lg font-bold text-midnight">{title}</h3>
+                <p className="font-body text-sm leading-relaxed text-dim">{description}</p>
+              </div>
+            ))}
+          </AnimatedGrid>
+        </div>
+      </section>
+
+      {/* Care team */}
+      <section className="section-dark py-20">
+        <div className="mx-auto max-w-container px-6">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+            <div className="flex flex-col gap-6">
+              <p className="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+                Your care team
+              </p>
+              <h2 className="font-display text-4xl font-bold text-white">
+                Supported by a dedicated, bilingual team
+              </h2>
+              <p className="font-body text-lg leading-relaxed text-white-faded">
+                Behind every visit is a warm, multilingual team trained to make
+                you feel at home from the moment you walk in — from your first
+                call to your last checkup.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {careTeamRoles.map((role) => (
+                  <Badge key={role} variant="white" size="sm">
+                    {role}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex h-[260px] w-full items-center justify-center rounded-2xl border border-white-border bg-white-subtle">
+              <div className="flex items-center gap-3 text-white-faded">
+                <GraduationCap className="h-6 w-6 text-accent" aria-hidden="true" />
+                <span className="font-ui text-sm font-semibold">
+                  EN / PT — bilingual care, every visit
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-pearl py-20">
+        <div className="mx-auto max-w-2xl px-6 text-center">
+          <h2 className="font-display text-3xl font-bold text-midnight">
+            Ready to meet Dr. Marques?
+          </h2>
+          <p className="mt-3 font-body text-lg text-dim">
+            Book a free consultation at Winter Springs or Ocoee — no pressure,
+            just a clear plan for your smile.
           </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/contact"
+              className={cn(buttonVariants({ variant: 'accent', size: 'lg' }))}
+            >
+              Schedule Free Consultation
+            </Link>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: 'whatsapp', size: 'lg' }))}
+            >
+              WhatsApp Us
+            </a>
+          </div>
         </div>
       </section>
     </>
