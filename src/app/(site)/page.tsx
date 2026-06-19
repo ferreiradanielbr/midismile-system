@@ -19,14 +19,7 @@ export const metadata: Metadata = {
 
 const WHATSAPP_URL = 'https://wa.me/16893103396';
 
-const insurances = [
-  'Delta Dental',
-  'Cigna',
-  'Aetna',
-  'Humana',
-  'UnitedHealthcare',
-  'Blue Cross',
-] as const;
+const insurances = ['Humana', 'Aetna', 'Delta Dental', 'Ameritas', 'UCD'] as const;
 
 const services = [
   {
@@ -96,7 +89,7 @@ const faqItems = [
   {
     question: 'Do you accept my insurance?',
     answer:
-      'We accept most major insurances including Delta Dental, Cigna, Aetna, Humana, UnitedHealthcare, and Blue Cross. Contact us to verify your specific plan.',
+      'We accept most major insurances including Humana, Aetna, Delta Dental, Ameritas, and UCD. Self-pay options are also available. Contact us to verify your specific plan.',
   },
   {
     question: 'How long does a dental implant procedure take?',

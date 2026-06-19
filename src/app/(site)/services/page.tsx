@@ -159,7 +159,7 @@ const faqItems = [
   {
     question: 'Do you accept my insurance?',
     answer:
-      'We accept most major PPO dental plans including Delta Dental, Aetna, Humana, Cigna, Ameritas, Florida Blue, United Concordia, and DDPA. We verify your coverage and file claims on your behalf at no extra charge. Contact us to confirm your specific plan.',
+      'We accept most major dental plans including Humana, Aetna, Delta Dental, Ameritas, and UCD. We verify your coverage and file claims on your behalf at no extra charge. Self-pay options are also available — contact us to confirm your specific plan.',
   },
   {
     question: 'Do you offer financing?',
@@ -188,16 +188,7 @@ const faqItems = [
   },
 ] as const;
 
-const insurances = [
-  'Delta Dental',
-  'Florida Blue',
-  'Ameritas',
-  'Aetna',
-  'United Concordia',
-  'DDPA',
-  'Humana',
-  'Cigna',
-] as const;
+const insurances = ['Humana', 'Aetna', 'Delta Dental', 'Ameritas', 'UCD'] as const;
 
 export default function ServicesPage() {
   return (
@@ -295,7 +286,7 @@ export default function ServicesPage() {
       <section className="bg-soft py-16">
         <div className="mx-auto max-w-container px-6">
           <p className="text-center font-ui text-sm font-semibold uppercase tracking-wider text-dim">
-            We accept most major PPO insurance plans
+            We accept most major insurance plans
           </p>
           <AnimatedGrid className="mt-6 flex flex-wrap items-center justify-center gap-4">
             {insurances.map((name) => (

@@ -50,11 +50,11 @@ Applied in: `src/lib/supabase/server.ts` · `src/middleware.ts`.
 - ✅ S1 Foundation & Design System — **DONE** (build passing, 18/18 pages)
 - 🔄 S2 Core Pages — **CURRENT**
   - ✅ S2.1 Home — $10K upgrade: CountUp stats, TestimonialsCarousel (autoplay + direction-aware), real clinic photos, animated hero with floating social-proof cards
-  - ✅ S2.2 Services — 8 alternating dark/light sections, real content, First Visit $99 banner, 8 insurers, 7-question FAQ
-  - ⏳ S2.3 Sofia AI Chatbot — multi-step qualification, `<LEAD_QUALIFIED>` emission, `/api/chat` integration
-  - ⏳ S2.4 About — Dr. Nelson timeline, mission, team
-  - ⏳ S2.5 Contact — email regex validation fix
-  - ⏳ S2.6 First Visit + Insurance content pages
+  - ✅ S2.2 Services — 8 alternating dark/light sections, real content, First Visit $99 banner, 5 insurers, 7-question FAQ
+  - 🔶 S2.3 Sofia AI Chatbot — working baseline exists (`ChatWidget` + `/api/chat` + `system-prompt.ts` + WhatsApp handoff). Only mounted on the homepage; copy/streaming polish still pending.
+  - ✅ S2.4 About — Dr. Nelson timeline, mission, care team
+  - ✅ S2.5 Contact — email regex validation fix
+  - ✅ S2.6 First Visit + Insurance content pages — Insurance page rebuilt with real lead-capture form (`/api/leads`), FAQ, call/WhatsApp CTA
 - S3 Full site + SEO
 - S4 AI Agent + WhatsApp
 - S5 Admin panel (role-based: commercial vs admin; Supabase Storage CMS; image upload UI — see architecture below)
@@ -83,3 +83,4 @@ Sofia emits, on qualification:
 - **Hours:** Mon–Fri 10AM–6PM
 - **WhatsApp:** (689) 310-3396
 - **Doctor:** Dr. Nelson Marques — 30+ years, Implants + Orofacial Harmonization, U of Florida + MARC Institute Miami, bilingual EN/PT
+- **Accepted insurance:** Humana, Aetna, Delta Dental, Ameritas, UCD (+ self-pay). This exact list is used in `system-prompt.ts` (Sofia) and on Home/Services/Insurance pages — keep them in sync, never substitute other carriers without updating this list first.

@@ -27,9 +27,11 @@ interface ContactFormBody {
   phone?: string;
   unit?: Unit;
   message?: string;
+  insurancePlan?: string;
+  source?: string;
 }
 
-/** Create a lead from the public contact form. */
+/** Create a lead from the public contact form, insurance form, or other lead-capture surfaces. */
 export async function POST(request: NextRequest): Promise<NextResponse> {
   let body: ContactFormBody;
 
@@ -52,10 +54,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       phone: body.phone?.trim() ?? null,
       preferred_unit: body.unit ?? null,
       notes: body.message?.trim() ?? null,
+      insurance_plan: body.insurancePlan?.trim() ?? null,
       language: 'en',
       urgency: 'normal',
       status: 'new',
-      source: 'contact_form',
+      source: body.source?.trim() || 'contact_form',
       qualification_score: 0,
     })
     .select()
