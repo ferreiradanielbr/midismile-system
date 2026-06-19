@@ -28,10 +28,16 @@ const unitOptions = [
   { value: 'ocoee', label: 'Ocoee' },
 ];
 
-/** Validate a single field on blur. Returns error string or undefined. */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/** Validate a single field. Returns error string or undefined. */
 function validateField(field: keyof FormErrors, value: string): string | undefined {
-  if (field === 'name' && !value.trim()) return 'Name is required.';
-  if (field === 'email' && !value.trim()) return 'Email is required.';
+  const trimmed = value.trim();
+  if (field === 'name' && !trimmed) return 'Name is required.';
+  if (field === 'email') {
+    if (!trimmed) return 'Email is required.';
+    if (!EMAIL_RE.test(trimmed)) return 'Enter a valid email address.';
+  }
   return undefined;
 }
 
@@ -56,9 +62,12 @@ export default function ContactPage() {
   };
 
   function validate(): boolean {
-    const next: FormErrors = {};
-    if (!form.name.trim()) next.name = 'Name is required.';
-    if (!form.email.trim()) next.email = 'Email is required.';
+    const nameError = validateField('name', form.name);
+    const emailError = validateField('email', form.email);
+    const next: FormErrors = {
+      ...(nameError && { name: nameError }),
+      ...(emailError && { email: emailError }),
+    };
     setErrors(next);
 
     const firstInvalidKey = (Object.keys(next) as (keyof FormErrors)[])[0];
