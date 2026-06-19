@@ -73,9 +73,10 @@ Applied in: `src/lib/supabase/server.ts` · `src/middleware.ts`.
 
 ## Real photos (public/images/)
 - `hero/`: clinic-office.jpg · dentista-hero.jpg · sorriso-bg.png
-- `services/`: dental-tools.jpg · implants.png · tooth-anatomy.png · xray.png
+- `services/`: dental-tools.jpg · implants.png · tooth-anatomy.png · xray.png · orthodontics.jpg · suresmile-aligners.jpg · orofacial-harmonization.jpg (last 3 sourced from Unsplash, free tier, no attribution required — see `ServicesSections.tsx`'s `SERVICE_PHOTOS` map; every one of the 8 services now has its own dedicated photo, no duplicates)
 - `team/`: dr-nelson.png
 - `testimonials/`: renata.png · vitoria.png · victor.png
+- `services/procedure-1.webp` · `procedure-2.webp` · `procedure-3.webp` exist but are unused (before/after clinical shots — missing tooth, decay, healthy smile) and not part of any page yet
 
 ## AI Agent handoff contract
 Sofia emits, on qualification:
