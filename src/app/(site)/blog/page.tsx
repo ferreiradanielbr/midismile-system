@@ -1,41 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { blogPosts } from '@/lib/blog-posts';
 
 export const metadata: Metadata = {
   title: 'Blog | MediSmile Group',
   description:
     'Oral health tips, dental news, and expert advice from the MediSmile team in Orlando, FL.',
 };
-
-const placeholderPosts = [
-  {
-    slug: 'dental-implants-what-to-expect',
-    category: 'Implants',
-    title: 'Dental Implants: What to Expect at Each Stage',
-    excerpt:
-      'From the initial consultation to the final crown placement, here is a clear timeline of what the implant process looks like — and why the results are worth it.',
-    date: 'June 2025',
-    readTime: '5 min read',
-  },
-  {
-    slug: 'teeth-whitening-myths',
-    category: 'Whitening',
-    title: '5 Teeth Whitening Myths Debunked by Dr. Marques',
-    excerpt:
-      'Professional whitening is safe, effective, and longer-lasting than at-home kits. Dr. Marques separates fact from fiction on the most common whitening questions.',
-    date: 'May 2025',
-    readTime: '4 min read',
-  },
-  {
-    slug: 'bilingual-dental-care-orlando',
-    category: 'Community',
-    title: "Why Bilingual Dental Care Matters for Orlando's Brazilian Community",
-    excerpt:
-      'Language barriers in healthcare can delay treatment and create unnecessary anxiety. We built MediSmile to serve you fully — in English and in Portuguese.',
-    date: 'April 2025',
-    readTime: '3 min read',
-  },
-] as const;
 
 export default function BlogPage() {
   return (
@@ -58,7 +29,7 @@ export default function BlogPage() {
       <section className="bg-pearl py-20">
         <div className="mx-auto max-w-container px-6">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {placeholderPosts.map((post) => (
+            {blogPosts.map((post) => (
               <article
                 key={post.slug}
                 className="flex flex-col rounded-xl border border-mist bg-white shadow-sm overflow-hidden transition-shadow hover:shadow-md"
@@ -71,7 +42,7 @@ export default function BlogPage() {
                       'linear-gradient(135deg, var(--color-soft) 0%, var(--color-mist) 100%)',
                   }}
                   role="img"
-                  aria-label="Article cover — Sprint 3"
+                  aria-label={`Article cover — ${post.title}`}
                 />
 
                 <div className="flex flex-1 flex-col gap-3 p-6">
@@ -103,10 +74,6 @@ export default function BlogPage() {
               </article>
             ))}
           </div>
-
-          <p className="mt-12 text-center font-body text-sm text-dim">
-            Full editorial blog with CMS integration built in Sprint 3.
-          </p>
         </div>
       </section>
     </>
