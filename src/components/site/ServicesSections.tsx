@@ -23,15 +23,17 @@ interface Props {
   whatsappUrl: string;
 }
 
-// Maps each service to the best available real photo
+// Maps each service to the best available real photo.
+// Only 7 real photos exist for 8 services, so one generic shot (dental-tools.jpg)
+// is reused — but every service with a distinctive matching photo gets it.
 const SERVICE_PHOTOS: Record<string, string> = {
   'dental-implants': '/images/services/implants.png',
   'orthodontics': '/images/services/dental-tools.jpg',
   'suresmile': '/images/hero/clinic-office.jpg',
   'teeth-whitening': '/images/hero/sorriso-bg.png',
   'dental-cleaning': '/images/services/xray.png',
-  'crowns-bridges': '/images/services/tooth-anatomy.png',
-  'endodontics': '/images/services/dental-tools.jpg',
+  'crowns-bridges': '/images/services/dental-tools.jpg',
+  'endodontics': '/images/services/tooth-anatomy.png',
   'orofacial-harmonization': '/images/hero/dentista-hero.jpg',
 };
 
