@@ -129,6 +129,10 @@
     background: var(--color-neutral-50);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Framer Motion's off-screen `initial={{ x }}` states translate elements
+       past the viewport edge before they scroll into view — clip it here
+       rather than chasing every animated component. */
+    overflow-x: hidden;
   }
 
   h1,
