@@ -3,6 +3,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { blogPosts, getBlogPost } from '@/lib/blog-posts';
+import { buttonVariants } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
+
+const WHATSAPP_URL = 'https://wa.me/16893103396';
 
 interface BlogPostPageProps {
   params: { slug: string };
@@ -57,10 +61,44 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       </section>
 
       <article className="bg-pearl py-20">
-        <div className="mx-auto max-w-3xl px-6">
-          <p className="font-body text-xl leading-relaxed text-body">{post.excerpt}</p>
+        <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6">
+          {post.content.map((block, i) =>
+            block.type === 'heading' ? (
+              <h2 key={i} className="mt-4 font-display text-2xl font-bold text-midnight">
+                {block.text}
+              </h2>
+            ) : (
+              <p key={i} className="font-body text-lg leading-relaxed text-body">
+                {block.text}
+              </p>
+            ),
+          )}
         </div>
       </article>
+
+      <section className="bg-soft py-16">
+        <div className="mx-auto max-w-2xl px-6 text-center">
+          <h2 className="font-display text-2xl font-bold text-midnight">
+            Ready to schedule your visit?
+          </h2>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/contact"
+              className={cn(buttonVariants({ variant: 'accent', size: 'lg' }))}
+            >
+              Schedule Free Consultation
+            </Link>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: 'whatsapp', size: 'lg' }))}
+            >
+              WhatsApp Us
+            </a>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

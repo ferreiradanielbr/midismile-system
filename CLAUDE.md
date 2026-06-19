@@ -59,7 +59,7 @@ Applied in: `src/lib/supabase/server.ts` · `src/middleware.ts`.
   - ✅ Technical SEO: dynamic `sitemap.ts` + `robots.ts`, JSON-LD (`Dentist`) for both locations, generated `opengraph-image.tsx` (brand colors, no fabricated photo), Vercel Analytics, optional GA4 via `NEXT_PUBLIC_GA_ID`
   - ✅ Mobile 375px pass found + fixed a real horizontal-overflow bug on Home/Services (Framer Motion off-screen `initial={{x}}` states) — fixed globally with `overflow-x: hidden` on `body`
   - ✅ Blog infra hardened: shared `src/lib/blog-posts.ts` data source (also used by sitemap), real `generateMetadata`, real 404 (`dynamicParams = false`) for unknown slugs, redesigned article template with design tokens
-  - ⏳ Blog content — still 3 placeholder posts; real articles to be supplied later (content/brand decision, deferred on request)
+  - ✅ Blog content — 7 real articles written (5 service-focused: Implants, SureSmile/Orthodontics, Whitening, Endodontics, Orofacial Harmonization; plus First Visit and the existing Bilingual Community piece). Grounded only in facts already established in `services/page.tsx` and CLAUDE.md — no invented statistics, success rates, or specific medical claims. `BlogPost.content` is a typed block array (`heading`/`paragraph`) in `src/lib/blog-posts.ts`.
   - ⏳ Performance: next/font + next/image already in place; no further action needed unless a Lighthouse pass surfaces something
 - S4 AI Agent + WhatsApp
 - S5 Admin panel (role-based: commercial vs admin; Supabase Storage CMS; image upload UI — see architecture below)
