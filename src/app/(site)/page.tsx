@@ -7,7 +7,6 @@ import { FAQAccordion } from '@/components/site/FAQAccordion';
 import { HeroSection } from '@/components/site/HeroSection';
 import { DoctorSection } from '@/components/site/DoctorSection';
 import { TestimonialsCarousel, type Testimonial } from '@/components/site/TestimonialsCarousel';
-import { ChatWidget } from '@/components/chat/ChatWidget';
 import { buttonVariants } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
@@ -360,8 +359,6 @@ export default function HomePage() {
           </p>
         </div>
       </section>
-
-      <ChatWidget />
     </>
   );
 }

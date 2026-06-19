@@ -54,7 +54,7 @@ export function ChatWidget() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const conversationId = useRef<string | undefined>(undefined);
+  const [sessionId] = useState<string>(() => crypto.randomUUID());
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -66,6 +66,10 @@ export function ChatWidget() {
     const text = input.trim();
     if (!text || isLoading) return;
 
+    // The local-only greeting (index 0) never went through the model, so it's
+    // excluded from the history sent to the API.
+    const history = [...messages.slice(1), { role: 'user' as const, content: text }];
+
     setInput('');
     setError(null);
     setMessages((prev) => [...prev, { role: 'user', content: text }]);
@@ -75,14 +79,13 @@ export function ChatWidget() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, conversationId: conversationId.current }),
+        body: JSON.stringify({ sessionId, messages: history }),
       });
 
       if (!res.ok) throw new Error('Failed to get response');
 
-      const data = (await res.json()) as { reply: string; conversationId: string };
-      conversationId.current = data.conversationId;
-      setMessages((prev) => [...prev, { role: 'assistant', content: data.reply }]);
+      const data = (await res.json()) as { message: string };
+      setMessages((prev) => [...prev, { role: 'assistant', content: data.message }]);
     } catch {
       setError('Sorry, something went wrong. Please try again.');
     } finally {

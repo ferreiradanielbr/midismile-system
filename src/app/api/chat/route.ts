@@ -49,7 +49,8 @@ export async function POST(request: Request): Promise<NextResponse> {
     const text = firstBlock && firstBlock.type === 'text' ? firstBlock.text : '';
 
     // Best-effort persistence — never block the user reply on DB errors.
-    void persistAndMaybeHandoff(sessionId, text).catch((err) =>
+    const lastUserMessage = messages[messages.length - 1]?.content ?? '';
+    void persistAndMaybeHandoff(sessionId, lastUserMessage, text).catch((err) =>
       console.error('chat persistence failed', err),
     );
 
@@ -61,26 +62,39 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 }
 
-async function persistAndMaybeHandoff(sessionId: string, text: string): Promise<void> {
+async function persistAndMaybeHandoff(
+  sessionId: string,
+  userText: string,
+  assistantText: string,
+): Promise<void> {
   const supabase = createAdminClient();
 
-  const { data: conversation } = await supabase
+  const { data: existing } = await supabase
     .from('conversations')
     .select('id')
     .eq('session_id', sessionId)
     .maybeSingle();
 
-  if (conversation?.id) {
-    await supabase.from('messages').insert({
-      conversation_id: conversation.id,
-      role: 'assistant',
-      content: text,
-    });
+  let conversationId = existing?.id;
+  if (!conversationId) {
+    const { data: created } = await supabase
+      .from('conversations')
+      .insert({ session_id: sessionId, status: 'active', language: 'en' })
+      .select('id')
+      .single();
+    conversationId = created?.id;
   }
+  if (!conversationId) return;
 
-  const match = LEAD_QUALIFIED_RE.exec(text);
+  await supabase.from('messages').insert([
+    { conversation_id: conversationId, role: 'user', content: userText },
+    { conversation_id: conversationId, role: 'assistant', content: assistantText },
+  ]);
+
+  const match = LEAD_QUALIFIED_RE.exec(assistantText);
   if (!match?.[1]) return;
 
   const lead = JSON.parse(match[1]) as QualifiedLead;
+  await supabase.from('conversations').update({ status: 'handed_off' }).eq('id', conversationId);
   await notifyCommercialTeam(lead);
 }

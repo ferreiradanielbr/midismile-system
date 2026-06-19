@@ -48,10 +48,10 @@ Applied in: `src/lib/supabase/server.ts` · `src/middleware.ts`.
 
 ## Roadmap
 - ✅ S1 Foundation & Design System — **DONE** (build passing, 18/18 pages)
-- 🔄 S2 Core Pages — **CURRENT**
+- ✅ S2 Core Pages — **DONE**
   - ✅ S2.1 Home — $10K upgrade: CountUp stats, TestimonialsCarousel (autoplay + direction-aware), real clinic photos, animated hero with floating social-proof cards
   - ✅ S2.2 Services — 8 alternating dark/light sections, real content, First Visit $99 banner, 5 insurers, 7-question FAQ
-  - 🔶 S2.3 Sofia AI Chatbot — working baseline exists (`ChatWidget` + `/api/chat` + `system-prompt.ts` + WhatsApp handoff). Only mounted on the homepage; copy/streaming polish still pending.
+  - ✅ S2.3 Sofia AI Chatbot — fixed 2026-06-18: `ChatWidget` was POSTing `{message, conversationId}` but `/api/chat` expected `{sessionId, messages}`, so Sofia never replied in any environment. Fixed the contract, made conversation persistence create the row (was a silent no-op before), and mounted the widget site-wide via `(site)/layout.tsx` instead of just the homepage. Full streaming/rate-limiting is still Sprint 4 per the code's own comments — current scope is "request actually works."
   - ✅ S2.4 About — Dr. Nelson timeline, mission, care team
   - ✅ S2.5 Contact — email regex validation fix
   - ✅ S2.6 First Visit + Insurance content pages — Insurance page rebuilt with real lead-capture form (`/api/leads`), FAQ, call/WhatsApp CTA
