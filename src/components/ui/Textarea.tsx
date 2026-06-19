@@ -13,7 +13,7 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
 
 /**
  * MediSmile design system — Textarea component.
- * Same anatomy as Input. Spec: open-design/design-systems/medismile/DESIGN.md §5
+ * Same anatomy as Input. Spec: design-system/medismile/MASTER.md
  */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
   { className, label, hint, error, rows = 4, disabled, id, ...props },

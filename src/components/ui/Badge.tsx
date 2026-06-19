@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
  * Variants: teal | gold | white (for dark backgrounds)
  * Sizes:    sm (11px) | md (12px)
  *
- * Spec: open-design/design-systems/medismile/DESIGN.md §5
+ * Spec: design-system/medismile/MASTER.md
  */
 const badgeVariants = cva(
   [

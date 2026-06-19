@@ -13,7 +13,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 /**
  * MediSmile design system — Input component.
- * Spec: open-design/design-systems/medismile/DESIGN.md §5
+ * Spec: design-system/medismile/MASTER.md
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   { className, label, hint, error, isLoading = false, disabled, id, ...props },

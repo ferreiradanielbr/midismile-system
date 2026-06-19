@@ -25,7 +25,7 @@ const quickLinks = [
 /**
  * Site footer — Server Component.
  * 4-column layout: Brand · Services · Locations · Quick Links
- * Spec: open-design/design-systems/medismile/DESIGN.md §3, §5
+ * Spec: design-system/medismile/MASTER.md
  */
 export function Footer() {
   const year = new Date().getFullYear();

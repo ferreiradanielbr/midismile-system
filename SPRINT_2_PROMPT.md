@@ -14,7 +14,7 @@ Você é o engenheiro sênior do **MediSmile Group Digital Ecosystem** — clín
 
 **Fontes de verdade — leia ANTES de criar qualquer componente:**
 1. `Base_docs/medismile-prototype.html` — bíblia visual absoluta
-2. `open-design/design-systems/medismile/DESIGN.md` — design system completo
+2. `design-system/medismile/MASTER.md` — design system completo (nota: este prompt foi escrito quando o design system ainda vivia em `open-design/design-systems/medismile/DESIGN.md`; esse arquivo nunca chegou a existir no repo final — `MASTER.md` é a referência canônica)
 3. `Base_docs/MediSmile-Developer-Handoff-v1.0.docx` — specs de componentes
 4. `Base_docs/MediSmile-PRD-v1.0.docx` — requisitos de produto
 

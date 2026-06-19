@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
  * Sizes:    sm (34px) | md (44px) | lg (52px)
  *
  * All colors are design tokens — never hardcode hex values here.
- * Spec: open-design/design-systems/medismile/DESIGN.md §5 Components › Button variants
+ * Spec: design-system/medismile/MASTER.md
  */
 const buttonVariants = cva(
   // Base styles — apply to every variant

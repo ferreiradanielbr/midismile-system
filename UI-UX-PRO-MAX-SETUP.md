@@ -3,7 +3,7 @@
 
 ## Objetivo
 
-Instalar a skill UI/UX Pro Max e gerar o `design-system/MASTER.md` do MediSmile — referência adicional ao `DESIGN.md` existente, com validação baseada em 161 tipos de produto e 161 paletas de cor.
+Instalar a skill UI/UX Pro Max e gerar o `design-system/medismile/MASTER.md` do MediSmile, com validação baseada em 161 tipos de produto e 161 paletas de cor. (Nota: o `DESIGN.md` mencionado abaixo nunca chegou a existir no repo final — `MASTER.md` é a única referência canônica hoje.)
 
 ---
 
@@ -104,7 +104,6 @@ python3 .claude/skills/ui-ux-pro-max/scripts/search.py \
 
 Após gerar o MASTER.md, comparar com:
 
-- `open-design/design-systems/medismile/DESIGN.md`
 - `src/app/globals.css` (tokens CSS atuais)
 - `Base_docs/medismile-prototype.html` (visual bible)
 
@@ -116,8 +115,8 @@ Anotar divergências e lacunas antes de implementar páginas do S2.
 
 | Output | Ação |
 |--------|------|
-| `design-system/MASTER.md` | Anexar ao prompt de cada sessão de S2 como contexto |
-| Divergências com DESIGN.md | Abrir para discussão antes de implementar |
+| `design-system/medismile/MASTER.md` | Anexar ao prompt de cada sessão como contexto |
+| Divergências com o prototype HTML | Abrir para discussão antes de implementar |
 | Anti-padrões identificados | Adicionar às regras do `CLAUDE.md` |
 | Recomendações de animação | Aplicar nos componentes Framer Motion existentes |
 
@@ -165,8 +164,7 @@ Ao abrir nova sessão de Cowork para o S2, incluir no prompt:
 
 ```
 Contexto adicional de design:
-- Ler design-system/MASTER.md (gerado pela UI/UX Pro Max skill)
-- Ler open-design/design-systems/medismile/DESIGN.md
+- Ler design-system/medismile/MASTER.md (gerado pela UI/UX Pro Max skill)
 - Ler Base_docs/medismile-prototype.html como visual bible absoluta
 - Stack: Next.js 14 App Router + Framer Motion + Tailwind tokens
 - Meta: landing page nível $10k — animações com spring physics,

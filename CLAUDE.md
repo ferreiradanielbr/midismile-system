@@ -7,7 +7,7 @@ Next.js 14 App Router · TypeScript (strict) · Tailwind + CSS-variable tokens �
 
 ## Non-negotiable rules
 - TypeScript strict, explicit types — **never `any`**. Explicit types on every function param.
-- Use design tokens only (`bg-primary`, `text-accent`, …) — **never hardcode hex colors**. Source of truth: `src/app/globals.css`. Visual bible: `Base_docs/medismile-prototype.html` + `open-design/design-systems/medismile/DESIGN.md`.
+- Use design tokens only (`bg-primary`, `text-accent`, …) — **never hardcode hex colors**. Source of truth: `src/app/globals.css`. Visual bible: `Base_docs/medismile-prototype.html` + `design-system/medismile/MASTER.md`.
 - Server Components by default; Client Components only when required (interactions, hooks).
 - Never touch the DB from the client — use Route Handlers / Server Actions.
 - Never expose secrets to the browser (only `NEXT_PUBLIC_*`).
@@ -22,8 +22,7 @@ Next.js 14 App Router · TypeScript (strict) · Tailwind + CSS-variable tokens �
 - `Base_docs/MediSmile-Sprint-Plan-v1.0.docx` — sprint scope
 - `Base_docs/MediSmile-Developer-Handoff-v1.0.docx` — component specs
 - `Base_docs/medismile-prototype.html` — visual bible (absolute reference)
-- `open-design/design-systems/medismile/DESIGN.md` — design system (tokens, typography, motion, components, voice, anti-patterns)
-- `design-system/medismile/MASTER.md` — **canonical token reference** (palette, z-index, spacing, motion, shadows). Always check before adding new visual values.
+- `design-system/medismile/MASTER.md` — **canonical token reference** (palette, typography, spacing, z-index, motion, shadows, voice, anti-patterns). Always check before adding new visual values.
 - `design-system/medismile/pages/` — per-page overrides (`home.md`, `services.md`, `sofia.md`) — take priority over MASTER for their specific page.
 
 ## Design tokens

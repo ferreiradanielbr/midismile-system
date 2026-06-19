@@ -19,7 +19,7 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 
 /**
  * MediSmile design system — Select component.
- * Native select with custom styling. Spec: open-design/design-systems/medismile/DESIGN.md §5
+ * Native select with custom styling. Spec: design-system/medismile/MASTER.md
  */
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   { className, label, hint, error, options, placeholder, disabled, id, ...props },

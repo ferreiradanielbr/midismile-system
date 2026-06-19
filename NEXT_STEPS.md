@@ -12,7 +12,6 @@
 ### O que foi entregue no S1
 - Setup Next.js 14 + TS strict + Tailwind com tokens (`tailwind.config.ts`, `globals.css`).
 - Design system completo: 17 tokens de cor, 3 famílias tipográficas via `next/font`, 6 níveis de sombra (blue-tinted), 4 easings + 4 durations, 5 border-radius, keyframes `orb-float` / `float-review` / `typing`, `prefers-reduced-motion` global.
-- `open-design/design-systems/medismile/DESIGN.md` — design system integrado como fonte de verdade visual.
 - Estrutura de pastas completa: `(site)`, `(admin)`, `api/{chat,leads,whatsapp/webhook}`, `components/{ui,site,chat,admin}`, `lib/{supabase,anthropic,whatsapp}`, `types`.
 - `Button` — 4 variantes (primary/accent/ghost/whatsapp) + 3 tamanhos (34/44/52px) + loading + active states. Referência de padrão para todos os componentes.
 - Clients Supabase (browser/server/admin) com type-fix do `CookieToSet`.
@@ -27,117 +26,68 @@
 
 ---
 
-## Status — Sprint 2 ✅ CONCLUÍDO (2026-06-14)
+## Status — Sprint 2 ✅ CONCLUÍDO
 
 **Build:** `npm run build` passando limpo — 18/18 páginas, zero erros TypeScript.
 
-### O que foi entregue no S2
+### O que foi entregue no S2 (versão inicial)
+- Tokens expandidos, componentes UI (Badge/Input/Textarea/Select/Alert/Card), Nav/Footer/layout, Home com 8 seções, ChatWidget, páginas internas (services/about/insurance/first-visit/contact/blog), `/api/leads` POST, `/design-system` expandido.
+- Sprint de polimento premium: motion (AnimatedGrid, hover/tap states), acessibilidade (skip link, z-index scale, aria-live), validação de formulário onBlur, ChatWidget com skeleton shimmer.
+- $10K upgrade: CountUp stats, TestimonialsCarousel, fotos reais da clínica, hero animado com floating social-proof cards.
 
-#### Tokens expandidos
-- `globals.css` — tokens alpha (`--color-accent-subtle`, `--color-accent-border`, `--color-gold-subtle`, etc.) + overlay tokens + classe `.section-dark` com gradiente radial per DESIGN.md §5.
-- `tailwind.config.ts` — `accent.subtle`, `accent.border`, `gold.subtle`, `gold.border`, `white-subtle`, `white-faded`, `white-border`, `white-muted`.
+### Correções e conclusão do S2 (sessão 2026-06-18/19)
+Auditoria encontrou que vários itens marcados "✅" no CLAUDE.md antigo não funcionavam de verdade. Tudo corrigido e testado ao vivo (browser + Playwright), não só lido no código:
 
-#### Componentes UI (Block 1)
-- `Badge.tsx` — variantes teal / gold / white, tamanhos sm / md. `cva` + `forwardRef`.
-- `Input.tsx` — estados default / focus / error / disabled / loading. Label + hint + error message com `AlertCircle`.
-- `Textarea.tsx` — mesma anatomia do Input. Resize vertical, min-height 112px.
-- `Select.tsx` — select nativo estilizado. `ChevronDown` à direita. Mesmos estados.
-- `Alert.tsx` — variantes info / success / error / warning. `onClose` opcional.
-- `Card.tsx` — 4 variantes: `ServiceCard` (top accent bar, hover lift), `DoctorCard` (dark bg), `ReviewCard` (stars gold), `PricingCard` (featured border-top gold).
-
-#### Site layout (Block 2)
-- `Nav.tsx` — fixo 72px, blur backdrop, scrolled shadow, hamburger mobile, `aria-current`.
-- `Footer.tsx` — Server Component, 4 colunas, endereços completos, badge PT 🇧🇷.
-- `(site)/layout.tsx` — Nav + main com pt-[72px] + Footer.
-
-#### Home page (Block 3)
-- Todas as 8 seções: Hero dark → Trust bar → Services grid → Doctor dark → Reviews → Locations → FAQ Accordion → Final CTA dark.
-- `FAQAccordion.tsx` — client component com Framer Motion `AnimatePresence`.
-- `ChatWidget.tsx` — floating bottom-right, spring animation, Sofia AI integrada ao `/api/chat`.
-
-#### Pages internas (Block 4)
-- `/services` — hero dark + grid de 6 ServiceCards.
-- `/about` — hero dark com Dr. Marques + seção missão.
-- `/insurance` — planos aceitos + formulário de verificação (client).
-- `/first-visit` — 4 steps numerados.
-- `/contact` — formulário completo (name/email/phone/unit/message) → POST `/api/leads` + loading/error/success states.
-- `/blog` — grid de 3 placeholder articles.
-
-#### API (Block 4 suporte)
-- `/api/leads` — adicionado handler `POST` para o formulário de contato.
-
-#### Design System (Block 6)
-- `/design-system` — expandido com tokens alpha, escala tipográfica completa, todas as variantes de Button/Badge/Input/Textarea/Select/Alert/Card, sombras, border-radius, motion.
+- **Sofia AI Chatbot estava 100% quebrada** — `ChatWidget` enviava `{message, conversationId}` mas `/api/chat` esperava `{sessionId, messages}`; toda mensagem retornava erro 400, em qualquer ambiente. Corrigido o contrato, corrigida a persistência de conversa (nunca criava a linha no banco), e o widget foi movido da home para `(site)/layout.tsx` — agora aparece em todas as páginas.
+- **About** — reescrita completa: foto real do Dr. Nelson, timeline de carreira (sem datas/estatísticas inventadas), missão, equipe.
+- **Contact** — validação de email só checava campo vazio, não formato. Adicionado regex.
+- **Insurance** — bug real: Home, Services e Insurance listavam seguradoras *diferentes* entre si, contradizendo a lista oficial usada pela Sofia. Padronizado para a lista oficial (Humana, Aetna, Delta Dental, Ameritas, UCD). Formulário de verificação era fake (`setTimeout`) — agora salva lead de verdade via `/api/leads`. Adicionado FAQ e CTA de WhatsApp/ligação.
+- **Fotos dos serviços** — `tooth-anatomy.png` (diagrama de canal radicular) estava no card errado ("Crowns & Bridges" em vez de "Endodontics"). Corrigido. Também sourced fotos reais (Unsplash, free tier) para Orthodontics, SureSmile e Botox/Harmonização Orofacial — hoje os 8 serviços têm foto própria, zero duplicação.
 
 ---
 
-## Sprint de Polimento Premium ✅ CONCLUÍDO (2026-06-14)
+## Status — Sprint 3 (Full Site + SEO) ✅ CONCLUÍDO (sessão 2026-06-18/19)
 
-**TypeScript:** `tsc --noEmit --strict` → zero erros.
+### SEO técnico
+- `src/app/sitemap.ts` + `robots.ts` dinâmicos (disallow `/admin`, `/api`, `/login`).
+- JSON-LD (`Dentist`) para as duas unidades em `src/components/seo/StructuredData.tsx` — só fatos confirmados, sem geo/rating inventados.
+- `src/app/opengraph-image.tsx` — OG image gerada via `next/og`, cores da marca, sem foto fake.
+- `@vercel/analytics` instalado (sem precisar de credencial).
+- GA4 opcional via `NEXT_PUBLIC_GA_ID` em `src/components/seo/GoogleAnalytics.tsx` — fica inerte até a env var ser configurada.
 
-### O que foi entregue (regras ui-ux-pro-max aplicadas)
+### Mobile
+- Pass em 375px encontrou overflow horizontal real na Home/Services (elementos do Framer Motion fora da tela antes do scroll). Corrigido globalmente com `overflow-x: hidden` no `body`.
 
-#### Bloco A — Motion Premium
-- `AnimatedGrid.tsx` (novo) — stagger 50ms por item via `whileInView`, trigger 80px antes da viewport. Aplicado nos grids de serviços e reviews da home.
-- `Card.tsx` — `ServiceCard` com `whileHover={{ y: -6 }}` + `whileTap={{ scale: 0.97 }}` (spring 400/25). `ReviewCard` com `whileTap={{ scale: 0.98 }}`.
-- `FAQAccordion.tsx` — exit-faster-than-enter: enter 0.25s ease-out, exit 0.15s ease-in.
-- `PricingCard` — `tabular-nums` no preço.
+### Blog
+- Infra real: `src/lib/blog-posts.ts` como fonte única de dados (sitemap + index + template todos leem dali), `generateMetadata` real, 404 real para slugs inválidos (`dynamicParams = false`).
+- 7 artigos completos escritos (Implants, SureSmile/Orthodontics, Whitening, Endodontics, Orofacial Harmonization, First Visit $99, Bilingual Community) — grounded só em fatos já confirmados no projeto, sem estatísticas/claims clínicos inventados.
 
-#### Bloco B — Acessibilidade
-- `(site)/layout.tsx` — skip link WCAG AA (`:focus:not-sr-only`) + `id="main-content"` no `<main>`.
-- `globals.css` — z-index scale: `--z-base/raised/nav/chat/modal/toast` (0→300).
-- `Alert.tsx` — `aria-live="assertive"` (error/warning) e `aria-live="polite"` (info/success).
-
-#### Bloco C — Formulário de Contato
-- `contact/page.tsx` — blur validation (valida ao sair do campo, limpa ao digitar). Auto-focus no primeiro campo inválido via `requestAnimationFrame`. `tabular-nums` nos telefones e WhatsApp.
-
-#### Bloco D — ChatWidget Premium
-- `ChatWidget.tsx` — `TypingIndicator` substituído por skeleton shimmer (3 linhas de larguras 100/75/55% com `animate-shimmer`).
-- Exit animation corrigida: spring na entrada, 0.15s ease-in na saída (exit-faster-than-enter).
-- `tailwind.config.ts` — keyframe `shimmer` (backgroundPosition sweep 200%→-200%).
+### O que falta do S3
+- Lighthouse/performance pass formal (next/font e next/image já em uso desde S1/S2 — risco baixo de haver muito trabalho aqui).
+- Google Maps embed em `/contact` e na home (ver "Pendências" abaixo — precisa de API key).
 
 ---
 
-## Sprint 3 — Full Site + SEO 🔜 PRÓXIMA
+## Sprint 4 — AI Agent + WhatsApp 🔜 PRÓXIMA
 
-### O que S3 precisa entregar
-
-#### Fotos reais
-- Substituir todos os `div` placeholder (gradiente) por fotos reais do Dr. Marques e das clínicas.
-- Usar `next/image` com `width`, `height` e `alt` em todas.
-
-#### Conteúdo completo nas pages internas
-- `/services` — página de detalhe por serviço (Implants, Whitening, Orthodontics, Veneers, Emergency, Family).
-- `/about` — timeline de 30 anos, equipe completa, certificações.
-- `/insurance` — tabela comparativa de planos + FAQ.
-- `/first-visit` — guia detalhado, formulário digital de intake.
-- `/blog` — CMS (Contentlayer ou MDX), posts reais.
-
-#### Google Maps
-- Integrar iframe do Google Maps em `/contact` e na home section Locations.
-- Variável `NEXT_PUBLIC_GOOGLE_MAPS_KEY` em `.env.local`.
-
-#### SEO
-- `sitemap.xml` e `robots.txt` via `next-sitemap` ou `app/sitemap.ts`.
-- Open Graph meta tags por página.
-- Schema.org `LocalBusiness` + `Dentist` (JSON-LD).
-- Canonical URLs.
-
-#### Analytics
-- Integrar Google Tag Manager ou Vercel Analytics.
+Ainda não iniciada. Por spec do Sprint Plan original, é aqui que entram:
+- Streaming de resposta da Sofia + rate limiting.
+- UI completa do chat widget (painel 380px, header com logo + "AI Assistant" + dot verde, handoff card com resumo do lead, modal full-screen no mobile).
+- Integração real com Evolution API (WhatsApp) para notificar o time comercial.
 
 ---
 
 ## Pendências que exigem você (credenciais)
 - [ ] **Supabase:** criar projeto → preencher `.env.local` → rodar migration `supabase/migrations/001_initial.sql`
-- [ ] **Anthropic:** `ANTHROPIC_API_KEY` para testar a Sofia
+- [ ] **Anthropic:** `ANTHROPIC_API_KEY` para testar a Sofia de verdade (contrato já corrigido, só falta a chave)
 - [ ] **Vercel:** conectar repo GitHub para deploy automático do `main`
-- [ ] **Evolution API:** instância + credenciais para WhatsApp
-- [ ] **Google Maps:** `NEXT_PUBLIC_GOOGLE_MAPS_KEY` para S3
+- [ ] **Evolution API:** instância + credenciais para WhatsApp (Sprint 4)
+- [ ] **Google Maps:** `NEXT_PUBLIC_GOOGLE_MAPS_KEY` (S3 — embed ainda não feito)
+- [ ] **GA4:** `NEXT_PUBLIC_GA_ID` se quiser analytics ativo (código já pronto, só não tem ID)
 
 ---
 
 ## Referências visuais
 - Visual bible: `Base_docs/medismile-prototype.html`
-- Design system: `open-design/design-systems/medismile/DESIGN.md`
+- Design system: `design-system/medismile/MASTER.md` (canônico) + `design-system/medismile/pages/*.md` (overrides por página)
 - Sempre consultar os dois antes de criar qualquer componente visual
