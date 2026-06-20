@@ -178,7 +178,7 @@ export function HeroSection() {
 
         {/* ── Right — hero image + floating social-proof cards ─ */}
         <motion.div
-          className="relative flex items-center justify-center"
+          className="relative mx-auto flex w-full max-w-[460px] items-center justify-center"
           variants={fadeIn}
           initial="hidden"
           animate="visible"
