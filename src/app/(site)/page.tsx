@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Zap, Star, Layers, AlertCircle, Heart, Gem, Phone, MapPin } from 'lucide-react';
 import { ServiceCard } from '@/components/ui/Card';
@@ -8,6 +9,7 @@ import { HeroSection } from '@/components/site/HeroSection';
 import { DoctorSection } from '@/components/site/DoctorSection';
 import { TestimonialsCarousel, type Testimonial } from '@/components/site/TestimonialsCarousel';
 import { buttonVariants } from '@/components/ui/Button';
+import { insurancePlans } from '@/lib/insurance-plans';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -17,8 +19,6 @@ export const metadata: Metadata = {
 };
 
 const WHATSAPP_URL = 'https://wa.me/16893103396';
-
-const insurances = ['Humana', 'Aetna', 'Delta Dental', 'Ameritas', 'UCD'] as const;
 
 const services = [
   {
@@ -88,7 +88,7 @@ const faqItems = [
   {
     question: 'Do you accept my insurance?',
     answer:
-      'We accept most major insurances including Humana, Aetna, Delta Dental, Ameritas, and UCD. Self-pay options are also available. Contact us to verify your specific plan.',
+      'We accept most major insurances including Humana, Aetna, Delta Dental, Ameritas, United Concordia, GEHA, MetLife, and Blue Cross Blue Shield. Self-pay options are also available. Contact us to verify your specific plan.',
   },
   {
     question: 'How long does a dental implant procedure take?',
@@ -151,13 +151,25 @@ export default function HomePage() {
             We accept most major insurances
           </p>
           <AnimatedGrid className="mt-6 flex flex-wrap items-center justify-center gap-6">
-            {insurances.map((name) => (
-              <span
-                key={name}
-                className="rounded-lg border border-mist bg-pearl px-5 py-2.5 font-ui text-sm font-semibold text-dim grayscale transition-all duration-base hover:grayscale-0 hover:text-primary hover:border-accent-border"
+            {insurancePlans.map((plan) => (
+              <div
+                key={plan.name}
+                className="flex h-14 items-center justify-center rounded-lg border border-mist bg-pearl px-5 grayscale transition-all duration-base hover:grayscale-0"
               >
-                {name}
-              </span>
+                {plan.logo ? (
+                  <Image
+                    src={plan.logo}
+                    alt={plan.name}
+                    width={160}
+                    height={60}
+                    className="h-6 w-auto object-contain"
+                  />
+                ) : (
+                  <span className="font-ui text-sm font-semibold text-dim hover:text-primary">
+                    {plan.name}
+                  </span>
+                )}
+              </div>
             ))}
           </AnimatedGrid>
         </div>

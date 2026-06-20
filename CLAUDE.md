@@ -88,4 +88,4 @@ Sofia emits, on qualification:
 - **Hours:** Mon–Fri 10AM–6PM
 - **WhatsApp:** (689) 310-3396
 - **Doctor:** Dr. Nelson Marques — 30+ years, Implants + Orofacial Harmonization, U of Florida + MARC Institute Miami, bilingual EN/PT
-- **Accepted insurance:** Humana, Aetna, Delta Dental, Ameritas, UCD (+ self-pay). This exact list is used in `system-prompt.ts` (Sofia) and on Home/Services/Insurance pages — keep them in sync, never substitute other carriers without updating this list first.
+- **Accepted insurance:** Humana, Aetna, Delta Dental, Ameritas, United Concordia, GEHA, MetLife, Blue Cross Blue Shield (+ self-pay). Single source of truth: `src/lib/insurance-plans.ts` — `system-prompt.ts` (Sofia) and the Home/Services/Insurance pages all read from it. Real logo assets exist for every plan except Delta Dental (`public/images/insurance/`). Never substitute or add a carrier without updating that file first.

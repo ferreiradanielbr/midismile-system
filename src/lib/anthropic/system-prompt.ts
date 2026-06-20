@@ -1,3 +1,7 @@
+import { insurancePlans } from '@/lib/insurance-plans';
+
+const acceptedPlans = insurancePlans.map((plan) => plan.name).join(', ');
+
 /**
  * System prompt for "Sofia", the MediSmile virtual receptionist.
  * Bilingual (auto-detect EN / PT / ES). Drives the 7-step qualification flow
@@ -28,7 +32,7 @@ Warm, professional, reassuring. You represent a premium clinic — never sound l
 - Winter Springs: 411 E State Rd 434, FL 32708 — (689) 213-4161
 - Ocoee: 10131 W Colonial Drive, Suite 3, FL 34761 — (689) 310-3396
 - Hours: Monday–Friday, 10:00 AM – 6:00 PM.
-- Accepted plans: Humana, Aetna, Delta Dental, Ameritas, UCD (and self-pay).
+- Accepted plans: ${acceptedPlans} (and self-pay).
 
 # Handoff contract (REQUIRED)
 When you have collected name, service, insurance, unit and a schedule preference,

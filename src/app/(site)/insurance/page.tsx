@@ -1,20 +1,20 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Check, ShieldCheck } from 'lucide-react';
 import { AnimatedGrid } from '@/components/ui/AnimatedGrid';
 import { FAQAccordion } from '@/components/site/FAQAccordion';
 import { InsuranceVerificationForm } from '@/components/site/InsuranceVerificationForm';
 import { buttonVariants } from '@/components/ui/Button';
+import { insurancePlans } from '@/lib/insurance-plans';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Insurance & Plans | MediSmile Group',
   description:
-    'MediSmile Group accepts Humana, Aetna, Delta Dental, Ameritas, and UCD. Self-pay options also available. Verify your coverage in Orlando, FL.',
+    'MediSmile Group accepts Humana, Aetna, Delta Dental, Ameritas, United Concordia, GEHA, MetLife, and Blue Cross Blue Shield. Self-pay options also available. Verify your coverage in Orlando, FL.',
 };
 
 const WHATSAPP_URL = 'https://wa.me/16893103396';
-
-const insurances = ['Humana', 'Aetna', 'Delta Dental', 'Ameritas', 'UCD'] as const;
 
 const faqItems = [
   {
@@ -75,15 +75,25 @@ export default function InsurancePage() {
           </p>
 
           <AnimatedGrid className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {insurances.map((name) => (
+            {insurancePlans.map((plan) => (
               <div
-                key={name}
-                className="flex items-center gap-3 rounded-lg border border-mist bg-white p-5 shadow-sm"
+                key={plan.name}
+                className="flex items-center gap-4 rounded-lg border border-mist bg-white p-5 shadow-sm"
               >
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-subtle text-accent">
                   <Check className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <p className="font-ui text-base font-semibold text-midnight">{name}</p>
+                {plan.logo ? (
+                  <Image
+                    src={plan.logo}
+                    alt={plan.name}
+                    width={160}
+                    height={60}
+                    className="h-8 w-auto object-contain"
+                  />
+                ) : (
+                  <p className="font-ui text-base font-semibold text-midnight">{plan.name}</p>
+                )}
               </div>
             ))}
 

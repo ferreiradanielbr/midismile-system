@@ -5,13 +5,10 @@ import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Alert } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Button';
+import { insurancePlans } from '@/lib/insurance-plans';
 
 const planOptions = [
-  { value: 'Humana', label: 'Humana' },
-  { value: 'Aetna', label: 'Aetna' },
-  { value: 'Delta Dental', label: 'Delta Dental' },
-  { value: 'Ameritas', label: 'Ameritas' },
-  { value: 'UCD', label: 'UCD' },
+  ...insurancePlans.map((plan) => ({ value: plan.name, label: plan.name })),
   { value: 'Other', label: 'Other plan' },
   { value: 'Self-pay', label: "I don't have dental insurance" },
 ] as const;
