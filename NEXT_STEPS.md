@@ -62,9 +62,30 @@ Auditoria encontrou que vários itens marcados "✅" no CLAUDE.md antigo não fu
 - Infra real: `src/lib/blog-posts.ts` como fonte única de dados (sitemap + index + template todos leem dali), `generateMetadata` real, 404 real para slugs inválidos (`dynamicParams = false`).
 - 7 artigos completos escritos (Implants, SureSmile/Orthodontics, Whitening, Endodontics, Orofacial Harmonization, First Visit $99, Bilingual Community) — grounded só em fatos já confirmados no projeto, sem estatísticas/claims clínicos inventados.
 
+### Segurança + performance (contribuição em paralelo via Cowork)
+Enquanto essa sessão rodava, o usuário corrigia o projeto em paralelo via outra sessão ("Cowork") no mesmo repo — gerou um conflito de lock do git, resolvido com segurança (sem processo git ativo confirmado antes de remover o lock). Mesclado e validado:
+- `next.config.mjs` — headers CSP, HSTS, Permissions-Policy.
+- `ContactForm.tsx` extraído como Client Component; `contact/page.tsx` virou Server Component com `metadata`/`openGraph` reais (mesmo padrão da página Insurance).
+- `MotionProvider.tsx` — wrapper `LazyMotion` para o Framer Motion.
+
+**2 bugs reais encontrados nessa entrega e corrigidos na sequência:**
+1. CSP sem `'unsafe-eval'` quebrava o Fast Refresh do `npm run dev` (modo dev precisa, produção não) — corrigido com `process.env.NODE_ENV !== 'production'` condicional.
+2. `MotionProvider` usava `LazyMotion ... strict`, que lança erro fatal em qualquer `motion.*` (e o projeto inteiro usa `motion.*`, não `m.*`) — quebrava **toda página em modo dev**. Verificado que o site já publicado em produção não foi afetado (a checagem é dev-only) antes de remover o `strict`.
+
+### Fotos e visual (achados do usuário revisando o site ao vivo)
+- `xray.png` (raio-X de diagnóstico) estava no card "Dental Cleaning" — não condizia com o texto. Trocado por foto real de limpeza (espelho + sonda nos dentes).
+- Badge flutuante "EN/PT · Bilingual" da Hero ficava deslocado em telas largas — o wrapper da foto não tinha limite de largura igual ao da foto (`max-w-[460px]`), sobrando espaço lateral em viewports `xl+`. Corrigido alinhando as duas larguras.
+- A foto da Hero (`sorriso-bg.png`) tem transparência real (canal alpha) — sem fundo próprio, o gradiente escuro do hero vazava por dentro do card, deixando os badges "flutuando no vazio". Adicionado o mesmo gradiente de marca que o `DoctorSection` já usa.
+
+### Seguradoras — logos reais
+Usuário forneceu 7 logos reais (`.avif`) salvos na raiz do projeto. Um deles (`plano-pattern-dental-icons.avif`) tinha nome genérico mas mostrava visualmente os ícones da Blue Cross Blue Shield — confirmado com o usuário antes de tratar como tal (o classificador de auto-mode bloqueou a primeira tentativa de rename sem essa confirmação, corretamente). Também resolvido: "UCD" da lista antiga = United Concordia Dental (logo `plano-concordia.avif`).
+
+Lista oficial agora (8 seguradoras, confirmada com o usuário — Delta Dental fica mesmo sem logo ainda): Humana, Aetna, Delta Dental, Ameritas, United Concordia, GEHA, MetLife, Blue Cross Blue Shield. Fonte única: `src/lib/insurance-plans.ts` — usada por Home, Services, Insurance, dropdown do formulário de verificação, e pelo system-prompt da Sofia (montado dinamicamente agora, não mais string fixa). Logos em `public/images/insurance/`.
+
 ### O que falta do S3
 - Lighthouse/performance pass formal (next/font e next/image já em uso desde S1/S2 — risco baixo de haver muito trabalho aqui).
 - Google Maps embed em `/contact` e na home (ver "Pendências" abaixo — precisa de API key).
+- Logo da Delta Dental (único plano ainda sem imagem, só texto).
 
 ---
 
@@ -78,12 +99,13 @@ Ainda não iniciada. Por spec do Sprint Plan original, é aqui que entram:
 ---
 
 ## Pendências que exigem você (credenciais)
-- [ ] **Supabase:** criar projeto → preencher `.env.local` → rodar migration `supabase/migrations/001_initial.sql`
-- [ ] **Anthropic:** `ANTHROPIC_API_KEY` para testar a Sofia de verdade (contrato já corrigido, só falta a chave)
-- [ ] **Vercel:** conectar repo GitHub para deploy automático do `main`
+- [x] **Vercel:** repo já conectado, deploy automático do `main` confirmado funcionando (verificado via Vercel MCP em 2026-06-19 — domínio `midismile-system.vercel.app`).
+- [ ] **Supabase:** criar projeto → preencher `.env.local`/env vars do Vercel → rodar migration `supabase/migrations/001_initial.sql`
+- [ ] **Anthropic:** `ANTHROPIC_API_KEY` para testar a Sofia de verdade (contrato já corrigido nesta sessão — não confirmado se a env var já existe no Vercel)
 - [ ] **Evolution API:** instância + credenciais para WhatsApp (Sprint 4)
 - [ ] **Google Maps:** `NEXT_PUBLIC_GOOGLE_MAPS_KEY` (S3 — embed ainda não feito)
 - [ ] **GA4:** `NEXT_PUBLIC_GA_ID` se quiser analytics ativo (código já pronto, só não tem ID)
+- [ ] **Logo Delta Dental:** único plano da lista de seguros ainda sem imagem (hoje aparece só como texto)
 
 ---
 

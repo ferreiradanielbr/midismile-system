@@ -54,11 +54,16 @@ Applied in: `src/lib/supabase/server.ts` · `src/middleware.ts`.
   - ✅ S2.4 About — Dr. Nelson timeline, mission, care team
   - ✅ S2.5 Contact — email regex validation fix
   - ✅ S2.6 First Visit + Insurance content pages — Insurance page rebuilt with real lead-capture form (`/api/leads`), FAQ, call/WhatsApp CTA
-- 🔄 S3 Full site + SEO — **CURRENT**
+- ✅ S3 Full site + SEO — **DONE**
   - ✅ Technical SEO: dynamic `sitemap.ts` + `robots.ts`, JSON-LD (`Dentist`) for both locations, generated `opengraph-image.tsx` (brand colors, no fabricated photo), Vercel Analytics, optional GA4 via `NEXT_PUBLIC_GA_ID`
   - ✅ Mobile 375px pass found + fixed a real horizontal-overflow bug on Home/Services (Framer Motion off-screen `initial={{x}}` states) — fixed globally with `overflow-x: hidden` on `body`
   - ✅ Blog infra hardened: shared `src/lib/blog-posts.ts` data source (also used by sitemap), real `generateMetadata`, real 404 (`dynamicParams = false`) for unknown slugs, redesigned article template with design tokens
   - ✅ Blog content — 7 real articles written (5 service-focused: Implants, SureSmile/Orthodontics, Whitening, Endodontics, Orofacial Harmonization; plus First Visit and the existing Bilingual Community piece). Grounded only in facts already established in `services/page.tsx` and CLAUDE.md — no invented statistics, success rates, or specific medical claims. `BlogPost.content` is a typed block array (`heading`/`paragraph`) in `src/lib/blog-posts.ts`.
+  - ✅ Security headers in `next.config.mjs`: CSP, HSTS, Permissions-Policy. CSP's `script-src` only adds `'unsafe-eval'` when `NODE_ENV !== 'production'` (Next dev server needs it for Fast Refresh; production doesn't).
+  - ✅ Contact page converted to a Server Component shell (real `metadata`/`openGraph`) wrapping a new `ContactForm.tsx` Client Component — same pattern as the Insurance page.
+  - ⚠️ `MotionProvider` (`src/components/providers/MotionProvider.tsx`) wraps the app in `LazyMotion` but **without** `strict` — every animated component here uses `motion.*`, not the lighter `m.*` API `strict` mode requires, so enabling `strict` throws a hard render error on every page (caught this in dev; the already-deployed prod site was unaffected since the invariant check is dev-only, but don't re-enable `strict` without migrating every `motion.*` call site to `m.*` first — see ChatWidget, DoctorSection, ServicesSections, FAQAccordion, TestimonialsCarousel, Card, AnimatedGrid, HeroSection).
+  - ✅ Real insurance plan logos sourced from the user (`public/images/insurance/`) — see "Accepted insurance" below.
+  - ✅ Hero photo fixes: floating badges (`HeroSection.tsx`) were misaligned on desktop because the wrapper around the photo had no width limit while the photo itself does (`max-w-[460px]`) — constrained the wrapper to match. The photo (`sorriso-bg.png`) also has real transparent regions, so it needs its own gradient background fill or the dark hero background bleeds through with no visible card edge.
   - ⏳ Performance: next/font + next/image already in place; no further action needed unless a Lighthouse pass surfaces something
 - S4 AI Agent + WhatsApp
 - S5 Admin panel (role-based: commercial vs admin; Supabase Storage CMS; image upload UI — see architecture below)
@@ -75,6 +80,7 @@ Applied in: `src/lib/supabase/server.ts` · `src/middleware.ts`.
 - `services/`: dental-tools.jpg · implants.png · tooth-anatomy.png · xray.png · orthodontics.jpg · suresmile-aligners.jpg · orofacial-harmonization.jpg (last 3 sourced from Unsplash, free tier, no attribution required — see `ServicesSections.tsx`'s `SERVICE_PHOTOS` map; every one of the 8 services now has its own dedicated photo, no duplicates)
 - `team/`: dr-nelson.png
 - `testimonials/`: renata.png · vitoria.png · victor.png
+- `insurance/`: aetna.avif · ameritas.avif · humana.avif · metlife.avif · geha.avif · united-concordia.avif · blue-cross-blue-shield.avif — real carrier logos provided by the user; referenced via `src/lib/insurance-plans.ts`, never hardcode a path to these elsewhere
 - `services/procedure-1.webp` · `procedure-2.webp` · `procedure-3.webp` exist but are unused (before/after clinical shots — missing tooth, decay, healthy smile) and not part of any page yet
 
 ## AI Agent handoff contract
