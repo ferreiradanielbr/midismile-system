@@ -183,8 +183,15 @@ export function HeroSection() {
           initial="hidden"
           animate="visible"
         >
-          {/* Main hero image */}
-          <div className="relative h-[480px] w-full max-w-[460px] overflow-hidden rounded-2xl shadow-xl">
+          {/* Main hero image — sorriso-bg.png has transparent edges, so the box
+              needs its own fill or the dark hero background bleeds through and
+              the card has no visible boundary for the floating badges to sit on. */}
+          <div
+            className="relative h-[480px] w-full max-w-[460px] overflow-hidden rounded-2xl shadow-xl"
+            style={{
+              background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%)',
+            }}
+          >
             <Image
               src="/images/hero/sorriso-bg.png"
               alt="Beautiful smile results at MediSmile Group"
