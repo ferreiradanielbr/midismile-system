@@ -29,7 +29,7 @@ const SERVICE_PHOTOS: Record<string, string> = {
   'orthodontics': '/images/services/orthodontics.jpg',
   'suresmile': '/images/services/suresmile-aligners.jpg',
   'teeth-whitening': '/images/hero/sorriso-bg.png',
-  'dental-cleaning': '/images/services/xray.png',
+  'dental-cleaning': '/images/services/dental-cleaning.jpg',
   'crowns-bridges': '/images/services/dental-tools.jpg',
   'endodontics': '/images/services/tooth-anatomy.png',
   'orofacial-harmonization': '/images/services/orofacial-harmonization.jpg',

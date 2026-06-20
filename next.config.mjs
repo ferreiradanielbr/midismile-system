@@ -11,9 +11,19 @@ const nextConfig = {
   },
   async headers() {
     // CSP allows: self + Google Fonts + Vercel Analytics + GA4
+    // 'unsafe-eval' is only added in dev — Next's dev server relies on
+    // eval-based source maps for Fast Refresh; production doesn't need it.
+    const scriptSrc = [
+      "'self'",
+      "'unsafe-inline'",
+      'https://www.googletagmanager.com',
+      'https://va.vercel-scripts.com',
+      ...(process.env.NODE_ENV !== 'production' ? ["'unsafe-eval'"] : []),
+    ].join(' ');
+
     const ContentSecurityPolicy = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://va.vercel-scripts.com",
+      `script-src ${scriptSrc}`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
