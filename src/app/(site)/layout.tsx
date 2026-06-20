@@ -1,6 +1,7 @@
 import { Nav } from '@/components/site/Nav';
 import { Footer } from '@/components/site/Footer';
 import { ChatWidget } from '@/components/chat/ChatWidget';
+import { MotionProvider } from '@/components/providers/MotionProvider';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,12 +14,14 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Skip to main content
       </a>
 
-      <Nav />
-      <main id="main-content" className="pt-[72px]">
-        {children}
-      </main>
-      <Footer />
-      <ChatWidget />
+      <MotionProvider>
+        <Nav />
+        <main id="main-content" className="pt-[72px]">
+          {children}
+        </main>
+        <Footer />
+        <ChatWidget />
+      </MotionProvider>
     </>
   );
 }
