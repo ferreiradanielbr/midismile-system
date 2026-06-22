@@ -84,8 +84,22 @@ Lista oficial agora (8 seguradoras, confirmada com o usuário — Delta Dental f
 
 ### O que falta do S3
 - Lighthouse/performance pass formal (next/font e next/image já em uso desde S1/S2 — risco baixo de haver muito trabalho aqui).
-- Google Maps embed em `/contact` e na home (ver "Pendências" abaixo — precisa de API key).
 - Logo da Delta Dental (único plano ainda sem imagem, só texto).
+
+---
+
+## Sprint de Polimento (2026-06-21) ✅ CONCLUÍDO
+
+Usuário revisou o site no ar e reportou 6 problemas (com prints), pedindo análise antes de implementar. Todos confirmados no código antes de corrigir:
+
+1. **Foto do Dr. Nelson com "tarjas" azuis nos dois lados** — `object-contain` numa caixa mais larga que a foto (quase quadrada) deixava espaço vazio nas laterais. Corrigido para `object-cover` em `DoctorSection.tsx` e na hero do About.
+2. **Rodapé com serviços falsos** — `serviceLinks` listava Veneers/Emergency Care/Pediatric Dentistry, que não existem em `/services`. Confirmado ao vivo com Playwright: clicar neles caía no topo da página porque a âncora não existia no DOM (não era bug de scroll, era dado errado). Corrigido para os 8 serviços reais.
+3. **Fundo estático no início das páginas** — só Home/Services tinham o gradiente animado (`animate-orb-float`); About, Blog (index + artigo), Contact, First Visit e Insurance estavam com fundo liso. Usuário escolheu aplicar o padrão de orbs já existente (em vez de um carrossel de imagens novo) — replicado nas 6 páginas.
+4. **Galeria do About só com 6 fotos + foto desconectada no "Care Team"** — refeito o fetch das 12 fotos reais do site original, usadas 11 (uma é quase-duplicata). A foto da seção "Care Team" (mulher de máscara, sem relação com o badge bilíngue) foi trocada pela foto do lounge + badge atualizado para "EN / PT / ES". **Importante:** isso reabriu a decisão de idiomas — confirmado com o usuário que o site precisa atender 3 públicos (inglês, português, espanhol/latino da Flórida) e que a migração i18n completa é uma **sprint futura** (S7, ver CLAUDE.md) — não construída agora, só essa seção pontual foi ajustada.
+5. **Sem Google Maps real** — a seção "Locations" da Home tinha um `<div>` placeholder. Descoberto que um embed simples (`maps.google.com/maps?q=...&output=embed`) **não precisa de API key** — testado num browser real antes de implementar. Isso também expôs um bug: o CSP em `next.config.mjs` tinha `frame-src 'none'` (adicionado na sessão Cowork anterior), que bloquearia o iframe silenciosamente — corrigido para `frame-src https://www.google.com https://maps.google.com`.
+6. **Posts do blog sem imagem de capa** — adicionado campo `coverImage` em `BlogPost` (`blog-posts.ts`), reaproveitando 5 fotos de serviços já existentes + 2 fotos do About (nenhuma imagem nova precisou ser buscada). Renderizado no índice e no template do artigo.
+
+Tudo validado contra build de produção (`next build` + `next start`, não só dev) — os itens 2 e 5 especificamente precisavam de CSP/navegação reais para confirmar.
 
 ---
 
@@ -100,12 +114,15 @@ Ainda não iniciada. Por spec do Sprint Plan original, é aqui que entram:
 
 ## Pendências que exigem você (credenciais)
 - [x] **Vercel:** repo já conectado, deploy automático do `main` confirmado funcionando (verificado via Vercel MCP em 2026-06-19 — domínio `midismile-system.vercel.app`).
+- [x] **Google Maps:** não precisa de API key — embed simples (`?output=embed`) implementado em 2026-06-21 na Home.
 - [ ] **Supabase:** criar projeto → preencher `.env.local`/env vars do Vercel → rodar migration `supabase/migrations/001_initial.sql`
 - [ ] **Anthropic:** `ANTHROPIC_API_KEY` para testar a Sofia de verdade (contrato já corrigido nesta sessão — não confirmado se a env var já existe no Vercel)
 - [ ] **Evolution API:** instância + credenciais para WhatsApp (Sprint 4)
-- [ ] **Google Maps:** `NEXT_PUBLIC_GOOGLE_MAPS_KEY` (S3 — embed ainda não feito)
 - [ ] **GA4:** `NEXT_PUBLIC_GA_ID` se quiser analytics ativo (código já pronto, só não tem ID)
 - [ ] **Logo Delta Dental:** único plano da lista de seguros ainda sem imagem (hoje aparece só como texto)
+
+## Sprint futura — i18n (EN/PT/ES)
+Confirmado em 2026-06-21: o site precisa atender 3 públicos/idiomas (inglês, português brasileiro, espanhol/latino da Flórida). Isso reverte uma decisão anterior de manter só PT-BR. Ainda **não iniciado** — escopo: `next-intl`, rotas `/[locale]/(site)/...`, tradução de todo o conteúdo, seletor de idioma, tags `hreflang`. A Sofia (chatbot) já responde nos 3 idiomas hoje — não depende dessa sprint. Tratar como sprint própria quando for aberta, não começar sem pedido explícito.
 
 ---
 
