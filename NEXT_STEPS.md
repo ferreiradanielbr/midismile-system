@@ -101,6 +101,9 @@ Usuário revisou o site no ar e reportou 6 problemas (com prints), pedindo anál
 
 Tudo validado contra build de produção (`next build` + `next start`, não só dev) — os itens 2 e 5 especificamente precisavam de CSP/navegação reais para confirmar.
 
+### Correção extra: orbs imperceptíveis (mesma sessão, depois do item 3)
+Usuário olhou a hero do **Services** (que já tinha orbs, não tocada nessa sprint) e disse que ainda parecia fundo azul estático — observação correta. O keyframe `animate-orb-float` só fazia 30px de movimento vertical, e a opacidade de cada orb era 5–15% com `blur-3xl`: matematicamente presente, mas imperceptível a olho. Corrigido na raiz: o keyframe (`globals.css`) agora faz um deslocamento diagonal + pulso de escala em 3 passos (não só 2 pontos), e todas as instâncias de orb no site (`HeroSection.tsx` + as 7 heroes genéricas) tiveram a opacidade triplicada (`/10`→`/30`, `/5`→`/25`, `/15`→`/35`, `/8`→`/30`) e o blur reduzido de `blur-3xl` para `blur-2xl` para a forma ficar visível. Confirmado com dois screenshots Playwright tirados com alguns segundos de diferença, contra build de produção — o brilho agora é claramente visível (antes, indistinguível do gradiente liso no mesmo teste).
+
 ---
 
 ## Sprint 4 — AI Agent + WhatsApp 🔜 PRÓXIMA

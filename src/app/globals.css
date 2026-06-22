@@ -161,8 +161,9 @@
 
 /* ── Keyframes ── */
 @keyframes orb-float {
-  0%   { transform: translateY(0); }
-  100% { transform: translateY(-30px); }
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(40px, -50px) scale(1.2); }
+  100% { transform: translate(-30px, 30px) scale(0.9); }
 }
 
 @keyframes float-review {

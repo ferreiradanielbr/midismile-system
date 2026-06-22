@@ -92,8 +92,8 @@ export function HeroSection() {
 
       {/* Gradient orbs */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-32 -top-32 h-[600px] w-[600px] rounded-full bg-primary-light/15 blur-3xl animate-orb-float" />
-        <div className="absolute -bottom-20 right-0 h-[500px] w-[500px] rounded-full bg-accent/8 blur-3xl animate-orb-float [animation-delay:3s]" />
+        <div className="absolute -left-32 -top-32 h-[650px] w-[650px] rounded-full bg-primary-light/35 blur-2xl animate-orb-float" />
+        <div className="absolute -bottom-20 right-0 h-[550px] w-[550px] rounded-full bg-accent/30 blur-2xl animate-orb-float [animation-delay:3s]" />
       </div>
 
       <div className="relative mx-auto grid w-full max-w-container grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-24">
