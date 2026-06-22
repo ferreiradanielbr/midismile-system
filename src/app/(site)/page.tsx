@@ -125,6 +125,8 @@ const locations = [
     tel: '+16892134161',
     mapsHref:
       'https://maps.google.com/maps?q=411+E+State+Rd+434+Suite+D+Winter+Springs+FL+32708',
+    mapsEmbedSrc:
+      'https://maps.google.com/maps?q=411+E+State+Rd+434+Suite+D+Winter+Springs+FL+32708&output=embed',
   },
   {
     name: 'Ocoee',
@@ -134,6 +136,8 @@ const locations = [
     tel: '+16893103396',
     mapsHref:
       'https://maps.google.com/maps?q=10131+W+Colonial+Drive+Suite+3+Ocoee+FL+34761',
+    mapsEmbedSrc:
+      'https://maps.google.com/maps?q=10131+W+Colonial+Drive+Suite+3+Ocoee+FL+34761&output=embed',
   },
 ] as const;
 
@@ -264,11 +268,12 @@ export default function HomePage() {
                   <p className="mt-2 font-ui text-sm text-dim">Mon–Fri 10AM–6PM</p>
                 </div>
 
-                {/* Map placeholder — Google Maps embed in Sprint 3 */}
-                <div
-                  className="h-40 w-full rounded-lg bg-soft"
-                  role="img"
-                  aria-label={`Map for ${loc.name} — Google Maps embed Sprint 3`}
+                <iframe
+                  src={loc.mapsEmbedSrc}
+                  title={`Map for MediSmile Group — ${loc.name}`}
+                  loading="lazy"
+                  className="h-40 w-full rounded-lg border-0"
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
 
                 <div className="flex gap-3">

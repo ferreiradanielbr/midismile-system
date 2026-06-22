@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
@@ -36,8 +37,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <>
-      <section className="section-dark py-20">
-        <div className="mx-auto max-w-3xl px-6">
+      <section className="section-dark relative overflow-hidden py-20">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-primary-light/10 blur-3xl animate-orb-float" />
+          <div className="absolute -right-20 bottom-0 h-[300px] w-[300px] rounded-full bg-accent/5 blur-3xl animate-orb-float [animation-delay:2s]" />
+        </div>
+
+        <div className="relative mx-auto max-w-3xl px-6">
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 font-ui text-sm font-semibold text-white-faded transition-colors hover:text-white"
@@ -62,6 +68,17 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       <article className="bg-pearl py-20">
         <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6">
+          <div className="relative h-64 w-full overflow-hidden rounded-2xl shadow-xl lg:h-80">
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 768px"
+            />
+          </div>
+
           {post.content.map((block, i) =>
             block.type === 'heading' ? (
               <h2 key={i} className="mt-4 font-display text-2xl font-bold text-midnight">

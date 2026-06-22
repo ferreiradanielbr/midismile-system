@@ -5,13 +5,17 @@ import { buttonVariants } from '@/components/ui/Button';
 
 const WHATSAPP_URL = 'https://wa.me/16893103396';
 
+// Must match the `id` of each service section in ServicesSections.tsx —
+// these are real anchors, not aspirational ones.
 const serviceLinks = [
   { href: '/services#dental-implants', label: 'Dental Implants' },
-  { href: '/services#teeth-whitening', label: 'Teeth Whitening' },
   { href: '/services#orthodontics', label: 'Orthodontics' },
-  { href: '/services#veneers', label: 'Veneers' },
-  { href: '/services#emergency', label: 'Emergency Care' },
-  { href: '/services#pediatric', label: 'Pediatric Dentistry' },
+  { href: '/services#suresmile', label: 'SureSmile Aligners' },
+  { href: '/services#teeth-whitening', label: 'Teeth Whitening' },
+  { href: '/services#dental-cleaning', label: 'Dental Cleaning' },
+  { href: '/services#crowns-bridges', label: 'Crowns & Bridges' },
+  { href: '/services#endodontics', label: 'Endodontics' },
+  { href: '/services#orofacial-harmonization', label: 'Botox & Facial Fillers' },
 ];
 
 const quickLinks = [

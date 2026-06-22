@@ -101,7 +101,7 @@ export function DoctorSection() {
             src="/images/team/dr-nelson.png"
             alt="Dr. Nelson Marques — MediSmile Group"
             fill
-            className="object-contain"
+            className="object-cover"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
         </motion.div>

@@ -16,8 +16,13 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="section-dark py-20">
-        <div className="mx-auto max-w-container px-6 text-center">
+      <section className="section-dark relative overflow-hidden py-20">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-primary-light/10 blur-3xl animate-orb-float" />
+          <div className="absolute -right-20 bottom-0 h-[300px] w-[300px] rounded-full bg-accent/5 blur-3xl animate-orb-float [animation-delay:2s]" />
+        </div>
+
+        <div className="relative mx-auto max-w-container px-6 text-center">
           <p className="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
             Get in touch
           </p>

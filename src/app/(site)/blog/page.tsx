@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { blogPosts } from '@/lib/blog-posts';
 
@@ -12,8 +13,13 @@ export default function BlogPage() {
   return (
     <>
       {/* Hero */}
-      <section className="section-dark py-20">
-        <div className="mx-auto max-w-container px-6 text-center">
+      <section className="section-dark relative overflow-hidden py-20">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-primary-light/10 blur-3xl animate-orb-float" />
+          <div className="absolute -right-20 bottom-0 h-[300px] w-[300px] rounded-full bg-accent/5 blur-3xl animate-orb-float [animation-delay:2s]" />
+        </div>
+
+        <div className="relative mx-auto max-w-container px-6 text-center">
           <p className="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
             Knowledge
           </p>
@@ -34,16 +40,15 @@ export default function BlogPage() {
                 key={post.slug}
                 className="flex flex-col rounded-xl border border-mist bg-white shadow-sm overflow-hidden transition-shadow hover:shadow-md"
               >
-                {/* Placeholder image */}
-                <div
-                  className="h-44 w-full"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, var(--color-soft) 0%, var(--color-mist) 100%)',
-                  }}
-                  role="img"
-                  aria-label={`Article cover — ${post.title}`}
-                />
+                <div className="relative h-44 w-full">
+                  <Image
+                    src={post.coverImage}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
 
                 <div className="flex flex-1 flex-col gap-3 p-6">
                   <div className="flex items-center justify-between">

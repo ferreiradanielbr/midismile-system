@@ -10,6 +10,7 @@ export interface BlogPost {
   excerpt: string;
   date: string;
   readTime: string;
+  coverImage: string;
   content: readonly BlogContentBlock[];
 }
 
@@ -22,6 +23,7 @@ export const blogPosts: readonly BlogPost[] = [
       'From the initial consultation to the final crown placement, here is a clear timeline of what the implant process looks like — and why the results are worth it.',
     date: 'June 2026',
     readTime: '5 min read',
+    coverImage: '/images/services/implants.png',
     content: [
       {
         type: 'paragraph',
@@ -61,6 +63,7 @@ export const blogPosts: readonly BlogPost[] = [
       "Both straighten your smile — but they get there differently. Here's how SureSmile clear aligners compare to traditional braces, and how we help you choose.",
     date: 'June 2026',
     readTime: '4 min read',
+    coverImage: '/images/services/orthodontics.jpg',
     content: [
       {
         type: 'paragraph',
@@ -95,6 +98,7 @@ export const blogPosts: readonly BlogPost[] = [
       'Professional whitening is safe, effective, and longer-lasting than at-home kits. Dr. Marques separates fact from fiction on the most common whitening questions.',
     date: 'May 2026',
     readTime: '4 min read',
+    coverImage: '/images/hero/sorriso-bg.png',
     content: [
       {
         type: 'paragraph',
@@ -139,6 +143,7 @@ export const blogPosts: readonly BlogPost[] = [
       "Root canals have a reputation they no longer deserve. Here's what modern, minimally invasive endodontic treatment actually looks like.",
     date: 'May 2026',
     readTime: '3 min read',
+    coverImage: '/images/services/tooth-anatomy.png',
     content: [
       {
         type: 'paragraph',
@@ -173,6 +178,7 @@ export const blogPosts: readonly BlogPost[] = [
       "It surprises a lot of patients that their dentist offers Botox and facial fillers. Here's why that makes more sense than it sounds.",
     date: 'April 2026',
     readTime: '4 min read',
+    coverImage: '/images/services/orofacial-harmonization.jpg',
     content: [
       {
         type: 'paragraph',
@@ -207,6 +213,7 @@ export const blogPosts: readonly BlogPost[] = [
       "A full exam, digital X-rays, and a professional cleaning for $99 — here's what's actually included, and why it matters even if your teeth feel fine.",
     date: 'April 2026',
     readTime: '3 min read',
+    coverImage: '/images/about/reception.jpg',
     content: [
       {
         type: 'paragraph',
@@ -245,6 +252,7 @@ export const blogPosts: readonly BlogPost[] = [
       'Language barriers in healthcare can delay treatment and create unnecessary anxiety. We built MediSmile to serve you fully — in English and in Portuguese.',
     date: 'March 2026',
     readTime: '3 min read',
+    coverImage: '/images/about/lounge.jpg',
     content: [
       {
         type: 'paragraph',

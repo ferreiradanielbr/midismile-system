@@ -87,6 +87,10 @@ const officePhotos = [
   { src: '/images/about/treatment-room.jpg', alt: 'MediSmile Group treatment room' },
   { src: '/images/about/hallway.jpg', alt: 'MediSmile Group office hallway' },
   { src: '/images/about/consultation-room.jpg', alt: 'MediSmile Group consultation room' },
+  { src: '/images/about/hallway-signage.jpg', alt: 'MediSmile Group hallway signage' },
+  { src: '/images/about/sterilization-hallway.jpg', alt: 'MediSmile Group sterilization area' },
+  { src: '/images/about/coffee-corner.jpg', alt: 'MediSmile Group coffee corner' },
+  { src: '/images/about/entrance.jpg', alt: 'MediSmile Group office entrance' },
   { src: '/images/about/exterior.jpg', alt: 'MediSmile Group office exterior' },
 ] as const;
 
@@ -94,8 +98,13 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="section-dark py-20">
-        <div className="mx-auto max-w-container px-6">
+      <section className="section-dark relative overflow-hidden py-20">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-primary-light/10 blur-3xl animate-orb-float" />
+          <div className="absolute -right-20 bottom-0 h-[300px] w-[300px] rounded-full bg-accent/5 blur-3xl animate-orb-float [animation-delay:2s]" />
+        </div>
+
+        <div className="relative mx-auto max-w-container px-6">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-6">
               <p className="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
@@ -131,7 +140,7 @@ export default function AboutPage() {
                 alt="Dr. Nelson Marques — MediSmile Group"
                 fill
                 priority
-                className="object-contain"
+                className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
@@ -237,12 +246,12 @@ export default function AboutPage() {
                 Your care team
               </p>
               <h2 className="font-display text-4xl font-bold text-white">
-                Supported by a dedicated, bilingual team
+                Supported by a dedicated, multilingual team
               </h2>
               <p className="font-body text-lg leading-relaxed text-white-faded">
-                Behind every visit is a warm, multilingual team trained to make
-                you feel at home from the moment you walk in — from your first
-                call to your last checkup.
+                Behind every visit is a warm team trained to make you feel at
+                home from the moment you walk in — in English, Portuguese, or
+                Spanish — from your first call to your last checkup.
               </p>
               <div className="flex flex-wrap gap-2">
                 {careTeamRoles.map((role) => (
@@ -255,8 +264,8 @@ export default function AboutPage() {
 
             <div className="relative h-[320px] w-full overflow-hidden rounded-2xl shadow-xl">
               <Image
-                src="/images/hero/dentista-hero.jpg"
-                alt="MediSmile Group care team member"
+                src="/images/about/lounge-wide.jpg"
+                alt="MediSmile Group waiting area"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -272,7 +281,7 @@ export default function AboutPage() {
               <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-xl border border-white-border bg-white/10 px-3 py-2.5 backdrop-blur-sm">
                 <GraduationCap className="h-4 w-4 text-accent" aria-hidden="true" />
                 <span className="font-ui text-xs font-semibold text-white">
-                  EN / PT — bilingual care, every visit
+                  EN / PT / ES — care in your language
                 </span>
               </div>
             </div>

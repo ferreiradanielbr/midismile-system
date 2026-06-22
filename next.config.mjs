@@ -28,7 +28,8 @@ const nextConfig = {
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
       "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
-      "frame-src 'none'",
+      // Google Maps location embeds on the Home page.
+      "frame-src https://www.google.com https://maps.google.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
