@@ -76,11 +76,13 @@ Applied in: `src/lib/supabase/server.ts` · `src/middleware.ts`.
 - Stack: existing Supabase project · Next.js Route Handlers · `@supabase/ssr`
 
 ## Real photos (public/images/)
-- `hero/`: clinic-office.jpg · dentista-hero.jpg · sorriso-bg.png
+- `brand/`: logo.png — real MediSmile Group logo, sourced from the official live site (medismilegroup.com). Used as-is in `Nav.tsx` and `Footer.tsx` — never recolor or distort it; it's a fixed brand asset, exempt from the "never hardcode hex" token rule.
+- `hero/`: clinic-office.jpg · dentista-hero.jpg · sorriso-bg.png — all three are verified byte-identical to images on medismilegroup.com (this project's "real photos" were sourced from there originally). `dentista-hero.jpg` is used in the About page's "Your care team" section.
 - `services/`: dental-tools.jpg · implants.png · tooth-anatomy.png · xray.png · orthodontics.jpg · suresmile-aligners.jpg · orofacial-harmonization.jpg (last 3 sourced from Unsplash, free tier, no attribution required — see `ServicesSections.tsx`'s `SERVICE_PHOTOS` map; every one of the 8 services now has its own dedicated photo, no duplicates)
-- `team/`: dr-nelson.png
+- `team/`: dr-nelson.png — verified byte-identical to medismilegroup.com's Dr. Nelson photo.
+- `about/`: lounge.jpg · reception.jpg · treatment-room.jpg · hallway.jpg · consultation-room.jpg · exterior.jpg — real interior/exterior photos of the actual office, sourced from a CSS-background-image gallery on medismilegroup.com (not visible to plain HTML scraping — found via headless-browser DOM inspection). Used in the About page's "Our space" section. 6 unused variants of this same WhatsApp-sourced photo set exist on the live site if more are ever needed.
 - `testimonials/`: renata.png · vitoria.png · victor.png
-- `insurance/`: aetna.avif · ameritas.avif · humana.avif · metlife.avif · geha.avif · united-concordia.avif · blue-cross-blue-shield.avif — real carrier logos provided by the user; referenced via `src/lib/insurance-plans.ts`, never hardcode a path to these elsewhere
+- `insurance/`: aetna.avif · ameritas.avif · humana.avif · metlife.avif · geha.avif · united-concordia.avif · blue-cross-blue-shield.avif — real carrier logos provided by the user; referenced via `src/lib/insurance-plans.ts`, never hardcode a path to these elsewhere. Rendered via `InsuranceMarquee.tsx` (continuous CSS marquee, `animate-marquee` in `tailwind.config.ts`/`globals.css`) on Home and Services; the dedicated `/insurance` page keeps a static grid since that page's job is scannability, not a trust-bar teaser.
 - `services/procedure-1.webp` · `procedure-2.webp` · `procedure-3.webp` exist but are unused (before/after clinical shots — missing tooth, decay, healthy smile) and not part of any page yet
 
 ## AI Agent handoff contract

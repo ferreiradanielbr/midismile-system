@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   Zap,
@@ -16,9 +15,9 @@ import {
 } from 'lucide-react';
 import { AnimatedGrid } from '@/components/ui/AnimatedGrid';
 import { FAQAccordion } from '@/components/site/FAQAccordion';
+import { InsuranceMarquee } from '@/components/site/InsuranceMarquee';
 import { ServicesSections } from '@/components/site/ServicesSections';
 import { buttonVariants } from '@/components/ui/Button';
-import { insurancePlans } from '@/lib/insurance-plans';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -288,28 +287,9 @@ export default function ServicesPage() {
           <p className="text-center font-ui text-sm font-semibold uppercase tracking-wider text-dim">
             We accept most major insurance plans
           </p>
-          <AnimatedGrid className="mt-6 flex flex-wrap items-center justify-center gap-4">
-            {insurancePlans.map((plan) => (
-              <div
-                key={plan.name}
-                className="flex h-14 items-center justify-center rounded-lg border border-mist bg-pearl px-5 grayscale transition-all duration-base hover:grayscale-0"
-              >
-                {plan.logo ? (
-                  <Image
-                    src={plan.logo}
-                    alt={plan.name}
-                    width={160}
-                    height={60}
-                    className="h-6 w-auto object-contain"
-                  />
-                ) : (
-                  <span className="font-ui text-sm font-semibold text-dim hover:text-primary">
-                    {plan.name}
-                  </span>
-                )}
-              </div>
-            ))}
-          </AnimatedGrid>
+          <div className="mt-6">
+            <InsuranceMarquee />
+          </div>
           <p className="mt-6 text-center font-body text-sm text-dim">
             Don&apos;t see yours?{' '}
             <Link href="/contact" className="font-semibold text-primary hover:text-primary-dark">

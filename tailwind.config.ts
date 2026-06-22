@@ -114,6 +114,7 @@ const config: Config = {
         'float-review': 'float-review 6s ease-in-out infinite',
         typing: 'typing 1.2s ease-in-out infinite',
         shimmer: 'shimmer 1.6s linear infinite',
+        marquee: 'marquee 28s linear infinite',
       },
       keyframes: {
         shimmer: {

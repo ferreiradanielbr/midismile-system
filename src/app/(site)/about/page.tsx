@@ -81,6 +81,15 @@ const careTeamRoles = [
   'Treatment Planning',
 ] as const;
 
+const officePhotos = [
+  { src: '/images/about/lounge.jpg', alt: 'MediSmile Group waiting lounge' },
+  { src: '/images/about/reception.jpg', alt: 'MediSmile Group reception desk' },
+  { src: '/images/about/treatment-room.jpg', alt: 'MediSmile Group treatment room' },
+  { src: '/images/about/hallway.jpg', alt: 'MediSmile Group office hallway' },
+  { src: '/images/about/consultation-room.jpg', alt: 'MediSmile Group consultation room' },
+  { src: '/images/about/exterior.jpg', alt: 'MediSmile Group office exterior' },
+] as const;
+
 export default function AboutPage() {
   return (
     <>
@@ -244,15 +253,65 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="flex h-[260px] w-full items-center justify-center rounded-2xl border border-white-border bg-white-subtle">
-              <div className="flex items-center gap-3 text-white-faded">
-                <GraduationCap className="h-6 w-6 text-accent" aria-hidden="true" />
-                <span className="font-ui text-sm font-semibold">
+            <div className="relative h-[320px] w-full overflow-hidden rounded-2xl shadow-xl">
+              <Image
+                src="/images/hero/dentista-hero.jpg"
+                alt="MediSmile Group care team member"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 h-24"
+                style={{
+                  background:
+                    'linear-gradient(to top, var(--color-primary-darker) 0%, transparent 100%)',
+                }}
+              />
+              <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-xl border border-white-border bg-white/10 px-3 py-2.5 backdrop-blur-sm">
+                <GraduationCap className="h-4 w-4 text-accent" aria-hidden="true" />
+                <span className="font-ui text-xs font-semibold text-white">
                   EN / PT — bilingual care, every visit
                 </span>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Our space */}
+      <section className="bg-pearl py-20">
+        <div className="mx-auto max-w-container px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+              Our space
+            </p>
+            <h2 className="mt-3 font-display text-4xl font-bold text-midnight">
+              Step inside our Orlando office
+            </h2>
+            <p className="mt-4 font-body text-lg leading-relaxed text-dim">
+              From a calming reception area to fully equipped treatment rooms,
+              every detail of MediSmile Group is designed around your comfort.
+            </p>
+          </div>
+
+          <AnimatedGrid className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3">
+            {officePhotos.map(({ src, alt }) => (
+              <div
+                key={src}
+                className="relative aspect-square overflow-hidden rounded-xl shadow-sm"
+              >
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  className="object-cover transition-transform duration-slow hover:scale-105"
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
+              </div>
+            ))}
+          </AnimatedGrid>
         </div>
       </section>
 

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Zap, Star, Layers, AlertCircle, Heart, Gem, Phone, MapPin } from 'lucide-react';
 import { ServiceCard } from '@/components/ui/Card';
@@ -7,9 +6,9 @@ import { AnimatedGrid } from '@/components/ui/AnimatedGrid';
 import { FAQAccordion } from '@/components/site/FAQAccordion';
 import { HeroSection } from '@/components/site/HeroSection';
 import { DoctorSection } from '@/components/site/DoctorSection';
+import { InsuranceMarquee } from '@/components/site/InsuranceMarquee';
 import { TestimonialsCarousel, type Testimonial } from '@/components/site/TestimonialsCarousel';
 import { buttonVariants } from '@/components/ui/Button';
-import { insurancePlans } from '@/lib/insurance-plans';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -150,28 +149,9 @@ export default function HomePage() {
           <p className="text-center font-ui text-sm font-semibold uppercase tracking-wider text-dim">
             We accept most major insurances
           </p>
-          <AnimatedGrid className="mt-6 flex flex-wrap items-center justify-center gap-6">
-            {insurancePlans.map((plan) => (
-              <div
-                key={plan.name}
-                className="flex h-14 items-center justify-center rounded-lg border border-mist bg-pearl px-5 grayscale transition-all duration-base hover:grayscale-0"
-              >
-                {plan.logo ? (
-                  <Image
-                    src={plan.logo}
-                    alt={plan.name}
-                    width={160}
-                    height={60}
-                    className="h-6 w-auto object-contain"
-                  />
-                ) : (
-                  <span className="font-ui text-sm font-semibold text-dim hover:text-primary">
-                    {plan.name}
-                  </span>
-                )}
-              </div>
-            ))}
-          </AnimatedGrid>
+          <div className="mt-6">
+            <InsuranceMarquee />
+          </div>
         </div>
       </section>
 

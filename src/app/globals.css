@@ -175,6 +175,11 @@
   50%       { transform: translateY(-6px); }
 }
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* Tailwind's built-in `animate-pulse` and `animate-ping` cover the
    pulse + ping cases; custom keyframes above cover the rest. */
 

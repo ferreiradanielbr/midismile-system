@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -48,14 +49,15 @@ export function Nav() {
     >
       <div className="mx-auto flex h-full max-w-container items-center justify-between px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3" aria-label="MediSmile home">
-          <div
-            className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-primary"
-            aria-hidden="true"
-          >
-            <span className="font-display text-lg font-bold text-white">M</span>
-          </div>
-          <span className="font-display text-xl font-bold text-midnight">MediSmile</span>
+        <Link href="/" className="flex items-center" aria-label="MediSmile home">
+          <Image
+            src="/images/brand/logo.png"
+            alt="MediSmile Group"
+            width={209}
+            height={112}
+            priority
+            className="h-10 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop links */}

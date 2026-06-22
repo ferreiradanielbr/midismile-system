@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Instagram, Facebook } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/Button';
@@ -38,14 +39,14 @@ export function Footer() {
           {/* Column 1 — Brand */}
           <div className="flex flex-col gap-6">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3" aria-label="MediSmile home">
-              <div
-                className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-primary"
-                aria-hidden="true"
-              >
-                <span className="font-display text-lg font-bold text-white">M</span>
-              </div>
-              <span className="font-display text-xl font-bold text-white">MediSmile</span>
+            <Link href="/" className="flex items-center" aria-label="MediSmile home">
+              <Image
+                src="/images/brand/logo.png"
+                alt="MediSmile Group"
+                width={209}
+                height={112}
+                className="h-11 w-auto object-contain"
+              />
             </Link>
 
             <p className="font-body text-base leading-relaxed text-white-faded">
